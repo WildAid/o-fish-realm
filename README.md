@@ -1,5 +1,14 @@
 # MongoDB Realm Application for WildAid
-This app can be imported to create your own MongoDB Realm app:
+
+The [WildAid Marine Program](https://marine.wildaid.org/) work to protect vulnerable marine environments.
+
+O-FISH (Officer Fishery Information Sharing Hub) is a multi-platform application that enables officers to browse and record boarding report data from their mobile devices.
+
+This repo implements the O-FISH Realm serverless backend application.
+
+Details on installing all applications making up the solution can be found [here](https://github.com/WildAid/o-fish.github.io).
+
+## Import and configure your own MongoDB Realm app
 
 1. Create your [Atlas Cluster](https://cloud.mongodb.com) and [Realm App](https://cloud.mongodb.com)
 1. Take a note of the Realm App-Id `appname-xxxxx` 
