@@ -1,0 +1,10 @@
+{
+    "name": "mongodb-atlas",
+    "type": "mongodb-atlas",
+    "config": {
+        "clusterName": "WildAidDemo",
+        "readPreference": "primary",
+        "wireProtocolEnabled": true
+    },
+    "version": 1
+}

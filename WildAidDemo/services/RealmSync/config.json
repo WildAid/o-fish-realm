@@ -1,0 +1,10 @@
+{
+    "name": "RealmSync",
+    "type": "mongodb-atlas",
+    "config": {
+        "clusterName": "WildAidDemo",
+        "readPreference": "primary",
+        "wireProtocolEnabled": false
+    },
+    "version": 1
+}

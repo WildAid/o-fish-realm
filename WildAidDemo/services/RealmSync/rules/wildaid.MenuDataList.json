@@ -1,0 +1,50 @@
+{
+    "database": "wildaid",
+    "collection": "MenuDataList",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "bsonType": "object",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "agency": {
+                "bsonType": "string"
+            },
+            "data": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "data": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "type": {
+                            "bsonType": "long"
+                        }
+                    },
+                    "required": [
+                        "type"
+                    ],
+                    "title": "MenuData"
+                }
+            }
+        },
+        "required": [
+            "_id",
+            "agency"
+        ],
+        "title": "MenuDataList"
+    }
+}

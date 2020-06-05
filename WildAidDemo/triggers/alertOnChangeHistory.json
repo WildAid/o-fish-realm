@@ -1,0 +1,19 @@
+{
+    "name": "alertOnChangeHistory",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT",
+            "UPDATE",
+            "REPLACE"
+        ],
+        "database": "wildaid",
+        "collection": "ChangeHistory",
+        "service_name": "mongodb-atlas",
+        "match": {},
+        "full_document": true,
+        "unordered": false
+    },
+    "function_name": "changeHistoryAlert",
+    "disabled": true
+}

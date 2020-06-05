@@ -1,0 +1,5 @@
+{
+    "name": "destinationEmailAddress",
+    "value": "TODO: Set if you want to send emails",
+    "from_secret": false
+}

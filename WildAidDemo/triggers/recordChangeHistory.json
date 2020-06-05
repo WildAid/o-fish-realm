@@ -1,0 +1,20 @@
+{
+    "name": "recordChangeHistory",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "UPDATE",
+            "REPLACE",
+            "INSERT",
+            "DELETE"
+        ],
+        "database": "wildaid",
+        "collection": "BoardingReports",
+        "service_name": "mongodb-atlas",
+        "match": {},
+        "full_document": true,
+        "unordered": false
+    },
+    "function_name": "recordChangeHistory",
+    "disabled": false
+}

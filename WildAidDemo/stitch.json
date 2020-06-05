@@ -1,0 +1,22 @@
+{
+    "config_version": 20180301,
+    "name": "WildAidDemo",
+    "location": "US-VA",
+    "deployment_model": "GLOBAL",
+    "security": {},
+    "hosting": {
+        "enabled": true,
+        "default_error_path": "",
+        "default_error_code": "404"
+    },
+    "custom_user_data_config": {
+        "enabled": true,
+        "mongo_service_id": "5ed4f83e861bfc791f0115b1",
+        "database_name": "wildaid",
+        "collection_name": "User",
+        "user_id_field": "realmUserID"
+    },
+    "sync": {
+        "development_mode_enabled": false
+    }
+}

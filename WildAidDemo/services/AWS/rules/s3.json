@@ -1,0 +1,6 @@
+{
+    "name": "s3",
+    "actions": [
+        "s3:PutObject"
+    ]
+}

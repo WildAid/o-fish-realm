@@ -1,0 +1,17 @@
+{
+    "name": "newPhoto",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT"
+        ],
+        "database": "wildaid",
+        "collection": "Photo",
+        "service_name": "mongodb-atlas",
+        "match": {},
+        "full_document": true,
+        "unordered": true
+    },
+    "function_name": "newPhoto",
+    "disabled": true
+}

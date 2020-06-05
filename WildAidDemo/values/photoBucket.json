@@ -1,0 +1,5 @@
+{
+    "name": "photoBucket",
+    "value": "TODO: Set if you want to store images in S3 (name of your bucket)",
+    "from_secret": false
+}

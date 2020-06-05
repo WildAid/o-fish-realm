@@ -1,0 +1,11 @@
+{
+    "name": "AWS",
+    "type": "aws",
+    "config": {
+        "accessKeyId": "TODO: Set if you want to use AWS services"
+    },
+    "secret_config": {
+        "secretAccessKey": "AWS-secret-key"
+    },
+    "version": 1
+}
