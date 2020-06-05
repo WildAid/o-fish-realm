@@ -6,9 +6,9 @@ O-FISH (Officer Fishery Information Sharing Hub) is a multi-platform application
 
 This repo implements the O-FISH Realm serverless backend application.
 
-Details on installing all applications making up the solution can be found [here](https://github.com/WildAid/o-fish.github.io).
+Details on installing all applications making up the solution can be found [here](http://wildaid.github.io/).
 
-## Import and configure your own MongoDB Realm app
+## Import and configure your own MongoDB Realm app
 
 1. Create your [Atlas Cluster](https://cloud.mongodb.com) and [Realm App](https://cloud.mongodb.com)
 1. Take a note of the Realm App-Id `appname-xxxxx` 
