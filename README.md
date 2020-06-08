@@ -15,7 +15,7 @@ Details on installing all applications making up the solution can be found [here
 1. Generate an API key pair for your project and note the public and private IDs (Access Manager/Project) from the Atlas UI
 1. Whitelist your IP address for API access (through the Atlas UI)
 1. Install `stitch-cli`: `npm install -g mongodb-stitch-cli`
-1. Log in to your Atlas/Realm project: `stitch-cli login --api-key=my-api-key --private-api-key="my-private-api-key"`
+1. Log in to your Atlas/Realm project: `stitch-cli login --api-key=my-api-key --private-api-key=my-private-api-key`
 1. Add your AWS private API key to your app as a Realm Secret: `stitch-cli secrets add --app-id=appname-xxxxx --name=AWS-secret-key --value=my-aws-secret-api-key` - Just use a dummy string if you are not planning on using AWS services
 1. Download the Realm app code: `git clone https://github.com/WildAid/o-fish-realm.git`
 1. `cd o-fish-realm/WildAidDemo`
@@ -43,5 +43,6 @@ Details on installing all applications making up the solution can be found [here
     }
 }
 ```
-17. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
+17. Enable the `recordChangeHistory` Trigger
+1. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
 1. Enable Realm Sync "Development Mode" through the Stitch UI (`Cluster Service` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). "Turn Dev Mode On". "Review & Deploy".
