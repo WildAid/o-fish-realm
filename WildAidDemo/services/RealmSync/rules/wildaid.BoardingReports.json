@@ -1,6 +1,6 @@
 {
     "database": "wildaid",
-    "collection": "Report",
+    "collection": "BoardingReports",
     "schema": {
         "bsonType": "object",
         "properties": {
