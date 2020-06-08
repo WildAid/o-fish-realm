@@ -10,7 +10,7 @@
         "default_error_code": "404"
     },
     "custom_user_data_config": {
-        "enabled": false,
+        "enabled": true,
         "mongo_service_id": "5ed4f83e861bfc791f0115b1",
         "database_name": "wildaid",
         "collection_name": "User",
