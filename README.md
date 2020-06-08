@@ -35,7 +35,7 @@ Details on installing all applications making up the solution can be found [here
         "last" : "Admin"
     },
     "agency" : {
-        "name" : "WildAid",
+        "name" : "Parque Nacional Galápagos",
         "admin" : true
     },
     "global" : {
