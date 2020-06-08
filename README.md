@@ -19,7 +19,7 @@ Details on installing all applications making up the solution can be found [here
 1. Add your AWS private API key to your app as a Realm Secret: `stitch-cli secrets add --app-id=appname-xxxxx --name=AWS-secret-key --value=my-aws-secret-api-key` - Just use a dummy string if you are not planning on using AWS services
 1. Download the Realm app code: `git clone https://github.com/WildAid/o-fish-realm.git`
 1. `cd o-fish-realm/WildAidDemo`
-1. Add in the cluster name (from step 1) in the "name" and "clusterName" fields in `stitch.json`, `services/RealmSync/config.json` and `services/mongodb-atlas/config.json`
+1. Add in the App name (from step 1) in the "name" field in `stitch.json` and add the cluster name to the "clusterName" field in `services/RealmSync/config.json` and `services/mongodb-atlas/config.json` files
 1. If using AWS services, edit the values in `values/awsRegion.json`, `values/destinationEmailAddress.json` and `values/sourceEmailAddress.json`
 1. If using AWS services, Set `accessKeyId` in `WildAidDemo/services/AWS/config.json`
 1. Import the code and values into your Realm app: `stitch-cli import --app-id=appname-xxxxx --strategy=replace --include-dependencies`
@@ -44,4 +44,4 @@ Details on installing all applications making up the solution can be found [here
 }
 ```
 17. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
-1. Enable Realm Sync "Development Mode" through the Stitch UI (`Cluster` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). "Turn Dev Mode On". "Review & Deploy".
+1. Enable Realm Sync "Development Mode" through the Stitch UI (`Cluster Service` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). "Turn Dev Mode On". "Review & Deploy".
