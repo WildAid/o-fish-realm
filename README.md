@@ -6,11 +6,11 @@ O-FISH (Officer Fishery Information Sharing Hub) is a multi-platform application
 
 This repo implements the O-FISH Realm serverless backend application.
 
-Details on installing all applications making up the solution can be found [here](http://wildaid.github.io/).
+Details on installing all applications making up the solution can be found [here](https://wildaid.github.io/).
 
 ## Import and configure your own MongoDB Realm app
 
-1. Create your [Atlas Cluster](https://cloud.mongodb.com) and [Realm App](https://cloud.mongodb.com). **Do not import sample data yet**
+1. Create your [Atlas Cluster](https://cloud.mongodb.com) and [Realm App](https://cloud.mongodb.com). Optionaly, [import sample data](https://wildaid.github.io/)
 1. Take a note of the Realm App-Id `appname-xxxxx` 
 1. Generate an API key pair for your project and note the public and private IDs (Access Manager/Project) from the Atlas UI
 1. Whitelist your IP address for API access (through the Atlas UI)
@@ -45,6 +45,6 @@ Details on installing all applications making up the solution can be found [here
 ```
 17. Enable "Custom User Data" under "Users"
 1. Enable the `recordChangeHistory` Trigger
+1. Enable Users/Custom Data (ensure that cluster name = `RealmSync`, database = `wildaid`, collection = `User` and user ID field = `realmUserId`)
 1. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
 1. Enable Realm Sync "Development Mode" through the Stitch UI (`Cluster Service` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). "Turn Dev Mode On". "Review & Deploy".
-1. Optionaly, import sample data
