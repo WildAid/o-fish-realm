@@ -43,6 +43,7 @@ Details on installing all applications making up the solution can be found [here
     }
 }
 ```
-17. Enable the `recordChangeHistory` Trigger
+17. Enable "Custom User Data" under "Users"
+1. Enable the `recordChangeHistory` Trigger
 1. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
 1. Enable Realm Sync "Development Mode" through the Stitch UI (`Cluster Service` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). "Turn Dev Mode On". "Review & Deploy".
