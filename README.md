@@ -15,7 +15,7 @@ The [WildAid Marine Program](https://marine.wildaid.org/) works to protect vulne
 
 O-FISH (Officer Fishery Information Sharing Hub) is a multi-platform application that enables officers to browse and record boarding report data from their mobile devices.
 
-This repo implements the O-FISH Realm serverless backend application and contains sample data. The `CodeForGoodBackup` directory contains a `mongodump` of the database, suitable for building and testing. The `WildAidDemo` directory contains the serverless functions, triggers, values, Realm Sync rules and other code that makes up the backend for the [web](https://github.com/WildAid/o-fish-web), [iOS](https://github.com/WildAid/o-fish-ios) and [Android](https://github.com/WildAid/o-fish-android) applications - together with the connection to the associated MongoDB Atlas database.
+This repo implements the O-FISH Realm serverless backend application and contains sample data. The `WildAidSampleBackup` directory contains a `mongodump` of the database, suitable for building and testing. The `WildAidDemo` directory contains the serverless functions, triggers, values, Realm Sync rules and other code that makes up the backend for the [web](https://github.com/WildAid/o-fish-web), [iOS](https://github.com/WildAid/o-fish-ios) and [Android](https://github.com/WildAid/o-fish-android) applications - together with the connection to the associated MongoDB Atlas database.
 
 
 ## <A NAME="O-FISHinstall">O-FISH Installation</A>
@@ -80,7 +80,7 @@ WildAid's O-FISH project has several components:
    1. Cryptographically secure verifiable change history
    1. MongoDB Realm Syc configuration - ensuring that the same reports can be accessed from any device
    This repository contains the Realm serverless platform code in the `WildAidDemo` directory.
-1. Sample data, for use when building test environments for the project. This repository contains sample data in the `CodeForGoodBackup` directory.
+1. Sample data, for use when building test environments for the project. This repository contains sample data in the `WildAidSampleBackup` directory.
 
 ## O-FISH <A NAME="infrastructure">Infrastructure</A>
 ![WildAid O-FISH architecture](https://webassets.mongodb.com/_com_assets/cms/architecture-zszceknhuo.png)
