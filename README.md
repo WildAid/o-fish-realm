@@ -54,7 +54,8 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
     },
     "global" : {
         "admin" : true
-    }
+    },
+    createdOn: ISODate()
 }
 ```
 17. Enable "Custom User Data" under "Users"
