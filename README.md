@@ -2,7 +2,7 @@
 
 **This app is work-in-progress, as is this README**
 
-# Table of Contents
+# TOC
 1. [Overview](#overview)
 1. [O-FISH Installation](#O-FISHinstall)
 1. [Import this repository as standalone code](#standalone)
