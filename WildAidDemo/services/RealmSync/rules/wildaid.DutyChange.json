@@ -1,17 +1,16 @@
 {
+    "id": "5ed8d30c8b3607224db46c7f",
     "database": "wildaid",
     "collection": "DutyChange",
-    "roles": [
-        {
-            "name": "default",
-            "apply_when": {},
-            "insert": true,
-            "delete": true,
-            "additional_fields": {}
-        }
-    ],
     "schema": {
+        "title": "DutyChange",
         "bsonType": "object",
+        "required": [
+            "_id",
+            "agency",
+            "date",
+            "status"
+        ],
         "properties": {
             "_id": {
                 "bsonType": "objectId"
@@ -19,47 +18,40 @@
             "agency": {
                 "bsonType": "string"
             },
+            "user": {
+                "title": "User",
+                "bsonType": "object",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "bsonType": "object",
+                        "required": [
+                            "last",
+                            "first"
+                        ],
+                        "properties": {
+                            "last": {
+                                "bsonType": "string"
+                            },
+                            "first": {
+                                "bsonType": "string"
+                            }
+                        }
+                    },
+                    "email": {
+                        "bsonType": "string"
+                    }
+                }
+            },
             "date": {
                 "bsonType": "date"
             },
             "status": {
                 "bsonType": "string"
-            },
-            "user": {
-                "bsonType": "object",
-                "properties": {
-                    "email": {
-                        "bsonType": "string"
-                    },
-                    "name": {
-                        "bsonType": "object",
-                        "properties": {
-                            "first": {
-                                "bsonType": "string"
-                            },
-                            "last": {
-                                "bsonType": "string"
-                            }
-                        },
-                        "required": [
-                            "last",
-                            "first"
-                        ],
-                        "title": "Name"
-                    }
-                },
-                "required": [
-                    "email"
-                ],
-                "title": "User"
             }
-        },
-        "required": [
-            "_id",
-            "agency",
-            "date",
-            "status"
-        ],
-        "title": "DutyChange"
+        }
     }
 }

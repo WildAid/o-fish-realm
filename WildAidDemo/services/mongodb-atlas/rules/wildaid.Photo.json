@@ -1,4 +1,5 @@
 {
+    "id": "5e60d308f281ab625ec35dd2",
     "database": "wildaid",
     "collection": "Photo",
     "roles": [
@@ -7,10 +8,10 @@
             "apply_when": {
                 "%%true": {
                     "%function": {
+                        "name": "isGlobalAdmin",
                         "arguments": [
                             "%%user.data.email"
-                        ],
-                        "name": "isGlobalAdmin"
+                        ]
                     }
                 }
             },
@@ -24,11 +25,11 @@
             "apply_when": {
                 "%%true": {
                     "%function": {
+                        "name": "isAgencyAdmin",
                         "arguments": [
                             "%%root.agency",
                             "%%user.data.email"
-                        ],
-                        "name": "isAgencyAdmin"
+                        ]
                     }
                 }
             },
@@ -42,11 +43,11 @@
             "apply_when": {
                 "%%true": {
                     "%function": {
+                        "name": "isAgencyMember",
                         "arguments": [
                             "%%root.agency",
                             "%%user.data.email"
-                        ],
-                        "name": "isAgencyMember"
+                        ]
                     }
                 }
             },

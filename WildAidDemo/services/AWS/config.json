@@ -1,8 +1,9 @@
 {
+    "id": "5e97151547da37c535c83567",
     "name": "AWS",
     "type": "aws",
     "config": {
-        "accessKeyId": "TODO: Set if you want to use AWS services"
+        "accessKeyId": "AKIAY5T6ZHGMP7BCAT63"
     },
     "secret_config": {
         "secretAccessKey": "AWS-secret-key"

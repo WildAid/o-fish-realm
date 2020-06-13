@@ -14,4 +14,3 @@ exports = function(change) {
     console.log(`Recorded change event for Report ID ${ObjID}`);
   }); 
 }
-  

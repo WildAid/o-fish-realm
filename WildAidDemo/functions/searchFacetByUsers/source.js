@@ -1,10 +1,8 @@
 exports = function(limit, offset, query, filter){
-var boardingsCollection = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("BoardingReports");
+var usersCollection = context.services.get("mongodb-atlas")
+  .db("wildaid").collection("User");
   
 if (!query){
-  var boardingReports = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("BoardingReports");
   var amount = 0;
   if (filter){
     var dateFilter = {};
@@ -17,16 +15,16 @@ if (!query){
       delete filter["date-to"];
     }
     if (dateFilter.$gte || dateFilter.$lte){
-      filter.date = dateFilter;
+      filter.lastLogin = dateFilter;
     } else {
-      if (filter.date){
-        filter.date = {
+      if (filter.lastLogin){
+        filter.lastLogin = {
           $gte: new Date(parseInt((new Date(filter.date)).valueOf()/86400000)*86400000),
           $lt: new Date((parseInt((new Date(filter.date)).valueOf()/86400000)+1)*86400000-6400000)
         }
       }
     }
-    amount = boardingReports
+    amount = usersCollection
      .aggregate([
         { 
           $match: filter 
@@ -36,16 +34,16 @@ if (!query){
         }
       ]).toArray();
   } else {
-    amount = boardingReports
+    amount = usersCollection
      .aggregate([
         {
           $count: "total"
         }
       ]).toArray();
   } 
-  var boardings = [];
+  var users = [];
   if (filter){
-   boardings = boardingReports
+   users = usersCollection
      .aggregate([
         { 
           $match: filter 
@@ -58,7 +56,7 @@ if (!query){
         }
       ]).toArray();
   } else {
-    boardings = boardingReports
+    users = usersCollection
      .aggregate([
         {
           $skip: offset
@@ -68,7 +66,7 @@ if (!query){
         }
       ]).toArray(); 
   }
-  return {boardings, amount}
+  return {users, amount}
 } else {
    var aggregateTerms = {}; 
     
@@ -78,10 +76,10 @@ if (!query){
         'compound': {
           "must": [],
           "filter": {
-            'term': {
+            'text': {
               'query': query, 
               'path': [
-                'vessel.name', 'inspection.summary.violations.offence.explanation', 'inspection.summary.violations.offence.code' 
+                'email', 'name.first', 'name.last', 'agency.name' 
               ], 
               'fuzzy': {
                 'maxEdits': 1.0
@@ -91,7 +89,7 @@ if (!query){
         },
         'highlight': {
           'path': [
-            'vessel.name', 'inspection.summary.violations.offence.explanation', 'inspection.summary.violations.offence.code'
+            'email', 'name.first', 'name.last', 'agency.name' 
           ]
         }
       }
@@ -101,7 +99,7 @@ if (!query){
         case "date":
           aggregateTerms.$search.compound.must.push({
             "range": {
-                "path": "date",
+                "path": "lastLogin",
                 "gte":  new Date(parseInt((new Date(filter.date)).valueOf()/86400000)*86400000),
                 "lte":  new Date((parseInt((new Date(filter.date)).valueOf()/86400000) + 1)*86400000-6400000)
             }
@@ -110,7 +108,7 @@ if (!query){
         case "date-from":
           aggregateTerms.$search.compound.must.push({
             "range": {
-                "path": "date",
+                "path": "lastLogin",
                 "gte":  new Date(parseInt((new Date(filter["date-from"])).valueOf()/86400000)*86400000)
             }
           });
@@ -118,7 +116,7 @@ if (!query){
         case "date-to":
           aggregateTerms.$search.compound.must.push({
             "range": {
-                "path": "date",
+                "path": "lastLogin",
                 "lte":  new Date((parseInt((new Date(filter["date-to"])).valueOf()/86400000) + 1)*86400000-6400000)
             }
           });
@@ -136,10 +134,10 @@ if (!query){
    } else {
       aggregateTerms = {
           '$search': {
-            'term': {
+            'text': {
               'query': query, 
               'path': [
-                'vessel.name', 'captain.name', 'inspection.summary.violations.offence.explanation', 'inspection.summary.violations.offence.code' 
+                'email', 'name.first', 'name.last', 'agency.name'  
               ], 
               'fuzzy': {
                 'maxEdits': 1.0
@@ -147,28 +145,28 @@ if (!query){
             },
             'highlight': {
               'path': [
-                'vessel.name', 'inspection.summary.violations.offence.explanation', 'inspection.summary.violations.offence.code'
+                'email', 'name.first', 'name.last', 'agency.name' 
               ]
             }
           }
         }
    }
    
-   var amount = boardingsCollection.aggregate([
+  var amount = usersCollection.aggregate([
     aggregateTerms, {
       '$count': "total"
     }
-   ]).toArray();
+  ]).toArray();
    
-   var boardings = boardingsCollection.aggregate([
+  var users = usersCollection.aggregate([
     aggregateTerms, {
       '$skip': offset
     }, {
       '$limit': limit
     }
-   ]).toArray();
+  ]).toArray();
    
-   var highlighted = boardingsCollection.aggregate([
+  var highlighted = usersCollection.aggregate([
     aggregateTerms, {
       '$project': {
         'highlights': {
@@ -178,6 +176,6 @@ if (!query){
     }
   ]).toArray();
    
-    return { boardings, amount, highlighted };
-  }
+  return { users, amount, highlighted };
+}
 };

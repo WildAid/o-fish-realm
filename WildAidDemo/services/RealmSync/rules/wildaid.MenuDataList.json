@@ -1,17 +1,14 @@
 {
+    "id": "5ed8d30c8b3607224db46c80",
     "database": "wildaid",
     "collection": "MenuDataList",
-    "roles": [
-        {
-            "name": "default",
-            "apply_when": {},
-            "insert": true,
-            "delete": true,
-            "additional_fields": {}
-        }
-    ],
     "schema": {
+        "title": "MenuDataList",
         "bsonType": "object",
+        "required": [
+            "_id",
+            "agency"
+        ],
         "properties": {
             "_id": {
                 "bsonType": "objectId"
@@ -22,7 +19,11 @@
             "data": {
                 "bsonType": "array",
                 "items": {
+                    "title": "MenuData",
                     "bsonType": "object",
+                    "required": [
+                        "type"
+                    ],
                     "properties": {
                         "data": {
                             "bsonType": "array",
@@ -33,18 +34,9 @@
                         "type": {
                             "bsonType": "long"
                         }
-                    },
-                    "required": [
-                        "type"
-                    ],
-                    "title": "MenuData"
+                    }
                 }
             }
-        },
-        "required": [
-            "_id",
-            "agency"
-        ],
-        "title": "MenuDataList"
+        }
     }
 }

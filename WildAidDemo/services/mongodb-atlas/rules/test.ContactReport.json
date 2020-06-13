@@ -1,15 +1,23 @@
 {
-    "id": "5e60d1df2b41db10af8dcc04",
-    "database": "wildaid",
-    "collection": "Agency",
+    "id": "5e61305b3db18ba935b73f55",
+    "database": "test",
+    "collection": "ContactReport",
     "roles": [
         {
-            "name": "Global Admin",
+            "name": "non-owner",
+            "apply_when": {},
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Agency Admin",
             "apply_when": {
                 "%%true": {
                     "%function": {
-                        "name": "isGlobalAdmin",
+                        "name": "isAgencyAdmin",
                         "arguments": [
+                            "%%root.agency",
                             "%%user.data.email"
                         ]
                     }

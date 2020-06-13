@@ -1,14 +1,72 @@
 exports = function(limit, offset, query, filter){
   var boardingsCollection = context.services.get("mongodb-atlas")
   .db("wildaid").collection("BoardingReports");
-
+  const aggregationTerm = [
+    { 
+      $project: {
+        crewTemp: [
+          {
+            crew: "$captain",
+            rank: "captain",
+          },
+          {
+            crew: "$crew",
+            rank: "crew"
+          }
+        ],
+        captain: "$captain",
+        violations: {
+          $map: {
+            input: "$inspection.summary.violations",
+            in : {
+              $sum: 1
+            }
+          }
+        },
+        vessel: "$vessel.name", 
+        date: 1,
+        safetyLevel: "$inspection.summary.safetyLevel.level"
+      }
+    },
+    {
+      $unwind: "$crewTemp"
+    },
+    {
+      $unwind: "$crewTemp.crew"
+    },
+    {
+      $project: {
+        name: "$crewTemp.crew.name",
+        license: "$crewTemp.crew.license",
+        vessel: 1,
+        violations: {
+          $sum: "$violations"
+        },
+        date: 1,
+        rank: "$crewTemp.rank",
+        safetyLevel: 1
+      }
+    },{
+      $sort: {
+        "name" : 1,
+        "vessel": 1
+      }
+    },
+    {
+      $group: {
+        _id: ["$name", "$license", "$vessel", "$safetyLevel"],
+        name : {$first: "$name"},
+        license: {$first: "$license"},
+        vessel: {$first: "$vessel"},
+        safetyLevel : {$first: "$safetyLevel"},
+        date: { $last: "$date"},
+        violations: { $sum: "$violations" }
+      }
+    }
+  ];
   if (!query){
     var boardingReports = context.services.get("mongodb-atlas")
     .db("wildaid").collection("BoardingReports");
-    var amount = [];
-    var highlighted = [];
-    var aggregation = [];
-
     if (filter) {
       var dateFilter = {};
       if (filter["date-from"]){
@@ -30,71 +88,44 @@ exports = function(limit, offset, query, filter){
         }
       }
       if (filter["inspection.summary.safetyLevel"]){
-        filter["inspection.summary.safetyLevel.level"] = filter["inspection.summary.safetyLevel"];
-        delete(filter["inspection.summary.safetyLevel"]);
+        const value = filter["inspection.summary.safetyLevel"];
+        delete filter["inspection.summary.safetyLevel"];
+        filter["inspection.summary.safetyLevel.level"] = value;
       }
-      aggregation.push({"$match": filter});
+      aggregationTerm.unshift({"$match": filter});
     }
-    aggregation.push(
-      {
-        $project: {
-          captain : '$captain',
-          crew: "$crew",
-          violations: "$inspection.summary.violations",
-          vessel: "$vessel.name",
-          date: 1,
-          safetyLevel: "$inspection.summary.safetyLevel"
-        }
-      }
-    );
-    var crew = boardingsCollection
-    .aggregate(aggregation).toArray()
-    .then(data => {
-      let crewList = [];
-
-      data.map((item) => {
-        if(item.captain) {
-          crewList.push({
-            name: item.captain.name,
-            license: item.captain.license,
-            vessel: item.vessel,
-            violations: Array.isArray(item.violations) ? item.violations.length : 0,
-            date: item.date,
-            rank: "captain",
-            safetyLevel: item.safetyLevel,
-          });
-        }
-        item.crew.map((crewMember) => {
-          if(crewMember) {
-            crewList.push({
-              name: crewMember.name,
-              license: crewMember.license,
-              vessel: item.vessel,
-              violations: Array.isArray(item.violations) ? item.violations.length : 0,
-              date: item.date,
-              rank: "crew",
-              safetyLevel: item.safetyLevel,
-            });
+    var promise = boardingsCollection.aggregate(aggregationTerm.concat([{$count: "total"}])).next()
+    .then((count)=>{
+      amount = count;
+      return boardingsCollection
+      .aggregate(aggregationTerm.concat([
+        {
+          $sort: {
+            "name" : 1,
+            "vessel": 1
           }
-          return null;
-        });
-        return null;
-      });
-      amount.push(crewList.length);
-      return crewList.slice(offset, offset+limit);
+        },
+        {
+          $skip: offset
+        },
+        {
+          $limit: limit
+        }
+      ])).toArray().then((data)=>{
+        return {amount: count.total, crew: data, highlights:[]};
+      }).catch( e => { console.log(e); return []; });
     }).catch( e => { console.log(e); return []; });
-
-    return {crew, amount, highlighted};
+    return promise;
   } else {
-    var aggregateTerms = {};
-
+    var searchTerms = {};
+    
     if (filter){
-      aggregateTerms = {
+      searchTerms = {
         '$search': {
           'compound': {
             "must": [],
             "filter": {
-              'term': {
+              'text': {
                 'query': query,
                 'path': [
                   'captain.name', 'crew.name'
@@ -115,7 +146,7 @@ exports = function(limit, offset, query, filter){
       Object.keys(filter).map((key) => {
         switch (key){
           case "inspection.summary.safetyLevel":
-          aggregateTerms.$search.compound.must.push({
+          searchTerms.$search.compound.must.push({
             "search": {
               "query": filter["inspection.summary.safetyLevel"],
               "path":"inspection.summary.safetyLevel.level"
@@ -123,7 +154,7 @@ exports = function(limit, offset, query, filter){
           });
           break;
           case "date":
-          aggregateTerms.$search.compound.must.push({
+          searchTerms.$search.compound.must.push({
             "range": {
               "path": "date",
               "gte":  new Date(parseInt((new Date(filter.date)).valueOf()/86400000)*86400000),
@@ -132,7 +163,7 @@ exports = function(limit, offset, query, filter){
           });
           break;
           case "date-from":
-          aggregateTerms.$search.compound.must.push({
+          searchTerms.$search.compound.must.push({
             "range": {
               "path": "date",
               "gte":  new Date(parseInt((new Date(filter["date-from"])).valueOf()/86400000)*86400000)
@@ -140,7 +171,7 @@ exports = function(limit, offset, query, filter){
           });
           break;
           case "date-to":
-          aggregateTerms.$search.compound.must.push({
+          searchTerms.$search.compound.must.push({
             "range": {
               "path": "date",
               "lte":  new Date((parseInt((new Date(filter["date-to"])).valueOf()/86400000) + 1)*86400000-6400000)
@@ -148,7 +179,7 @@ exports = function(limit, offset, query, filter){
           });
           break;
           default:
-          aggregateTerms.$search.compound.must.push({
+          searchTerms.$search.compound.must.push({
             "search": {
               "query": filter[key],
               "path": key
@@ -158,9 +189,9 @@ exports = function(limit, offset, query, filter){
         }
       })
     } else {
-      aggregateTerms = {
+      searchTerms = {
         '$search': {
-          'term': {
+          'text': {
             'query': query,
             'path': [
               'captain.name', 'crew.name'
@@ -177,35 +208,62 @@ exports = function(limit, offset, query, filter){
         }
       }
     }
-
-    var crew = boardingsCollection.aggregate([
-      aggregateTerms,
-      {
-        '$project': {
-          'captain' : '$captain',
-          'crew': "$crew",
-          'violations': "$inspection.summary.violations",
-          'vessel': "$vessel.name",
-          'date': 1,
-          'safetyLevel': "$inspection.summary.safetyLevel",
-          'highlights': {
-            '$meta': 'searchHighlights'
+    
+    searchTerms = [searchTerms].concat([
+    { 
+      $project: {
+        captain: "$captain",
+        crew: "$crew",
+        violations: { 
+          $sum:{
+            $map: {
+              input: "$inspection.summary.violations",
+              in : {
+                $sum: 1
+              }
+            }
           }
+        },
+        vessel: "$vessel.name", 
+        date: 1,
+        safetyLevel: "$inspection.summary.safetyLevel.level",
+        'highlights': {
+          '$meta': 'searchHighlights'
         }
       }
-    ]).toArray();
-
-    var highlighted = boardingsCollection.aggregate([
-      aggregateTerms,
-      {
-        '$project': {
-          'highlights': {
-            '$meta': 'searchHighlights'
-          }
-        }
-      }
-    ]).toArray();
-
-    return { crew, highlighted };
+    }
+  ]);
+    
+    var promise = boardingsCollection.aggregate(searchTerms.concat([{$count: "total"}])).next()
+    .then((count)=>{
+      return boardingsCollection.aggregate(
+        searchTerms.concat(
+          {
+            '$project': {
+              'highlights': {
+                '$meta': 'searchHighlights'
+              }
+            }
+          })).toArray().then((highlighted)=>{
+            return boardingsCollection
+            .aggregate(searchTerms.concat([
+              {
+                $sort: {
+                  "name" : 1,
+                  "vessel": 1
+                }
+              },
+              {
+                $skip: offset
+              },
+              {
+                $limit: limit
+              }
+            ])).toArray().then((data)=>{
+              return {amount: count.total, highlights : highlighted, crew: data};
+            });
+          });
+        }).catch( e => { console.log(e); return []; });
+    return promise;
   }
 };

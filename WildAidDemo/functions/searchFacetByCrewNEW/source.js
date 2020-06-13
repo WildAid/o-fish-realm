@@ -2,7 +2,7 @@ exports = function(limit, offset, query, filter){
   var boardingsCollection = context.services.get("mongodb-atlas")
   .db("wildaid").collection("BoardingReports");
   const aggregationTerm = [
-    {
+    { 
       $project: {
         crewTemp: [
           {
@@ -23,7 +23,7 @@ exports = function(limit, offset, query, filter){
             }
           }
         },
-        vessel: "$vessel.name",
+        vessel: "$vessel.name", 
         date: 1,
         safetyLevel: "$inspection.summary.safetyLevel.level"
       }
@@ -118,7 +118,7 @@ exports = function(limit, offset, query, filter){
     return promise;
   } else {
     var searchTerms = {};
-
+    
     if (filter){
       searchTerms = {
         '$search': {
@@ -208,13 +208,13 @@ exports = function(limit, offset, query, filter){
         }
       }
     }
-
+    
     searchTerms = [searchTerms].concat([
-    {
+    { 
       $project: {
         captain: "$captain",
         crew: "$crew",
-        violations: {
+        violations: { 
           $sum:{
             $map: {
               input: "$inspection.summary.violations",
@@ -224,7 +224,7 @@ exports = function(limit, offset, query, filter){
             }
           }
         },
-        vessel: "$vessel.name",
+        vessel: "$vessel.name", 
         date: 1,
         safetyLevel: "$inspection.summary.safetyLevel.level",
         'highlights': {
@@ -233,7 +233,7 @@ exports = function(limit, offset, query, filter){
       }
     }
   ]);
-
+    
     var promise = boardingsCollection.aggregate(searchTerms.concat([{$count: "total"}])).next()
     .then((count)=>{
       return boardingsCollection.aggregate(

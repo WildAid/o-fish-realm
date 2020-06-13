@@ -1,5 +1,6 @@
 {
+    "id": "5ec2cf962202e961b233af0c",
     "name": "awsRegion",
-    "value": "TODO: Set if want to use S3 or SES e.g. us-west-2",
+    "value": "us-west-2",
     "from_secret": false
 }

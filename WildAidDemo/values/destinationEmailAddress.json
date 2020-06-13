@@ -1,5 +1,6 @@
 {
+    "id": "5ec2cd732202e961b233a85f",
     "name": "destinationEmailAddress",
-    "value": "TODO: Set if you want to send emails",
+    "value": "andrew.morgan@mongodb.com",
     "from_secret": false
 }

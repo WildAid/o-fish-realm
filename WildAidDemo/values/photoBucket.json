@@ -1,5 +1,6 @@
 {
+    "id": "5e97156147da37c535c83646",
     "name": "photoBucket",
-    "value": "TODO: Set if you want to store images in S3 (name of your bucket)",
+    "value": "oceanwatch-photos",
     "from_secret": false
 }

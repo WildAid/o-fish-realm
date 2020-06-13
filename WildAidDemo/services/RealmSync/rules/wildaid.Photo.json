@@ -1,17 +1,17 @@
 {
+    "id": "5ed8d30c8b3607224db46c81",
     "database": "wildaid",
     "collection": "Photo",
-    "roles": [
-        {
-            "name": "default",
-            "apply_when": {},
-            "insert": true,
-            "delete": true,
-            "additional_fields": {}
-        }
-    ],
     "schema": {
+        "title": "Photo",
         "bsonType": "object",
+        "required": [
+            "_id",
+            "agency",
+            "pictureURL",
+            "referencingReportID",
+            "date"
+        ],
         "properties": {
             "_id": {
                 "bsonType": "objectId"
@@ -19,8 +19,8 @@
             "agency": {
                 "bsonType": "string"
             },
-            "date": {
-                "bsonType": "date"
+            "thumbNail": {
+                "bsonType": "binData"
             },
             "picture": {
                 "bsonType": "binData"
@@ -31,17 +31,9 @@
             "referencingReportID": {
                 "bsonType": "string"
             },
-            "thumbNail": {
-                "bsonType": "binData"
+            "date": {
+                "bsonType": "date"
             }
-        },
-        "required": [
-            "_id",
-            "agency",
-            "pictureURL",
-            "referencingReportID",
-            "date"
-        ],
-        "title": "Photo"
+        }
     }
 }

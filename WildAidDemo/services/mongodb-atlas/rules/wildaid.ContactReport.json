@@ -1,4 +1,5 @@
 {
+    "id": "5e60d22e2b41db10af8dcc7e",
     "database": "wildaid",
     "collection": "ContactReport",
     "roles": [
@@ -7,10 +8,10 @@
             "apply_when": {
                 "%%true": {
                     "%function": {
+                        "name": "isGlobalAdmin",
                         "arguments": [
                             "%%user.data.email"
-                        ],
-                        "name": "isGlobalAdmin"
+                        ]
                     }
                 }
             },
@@ -24,10 +25,10 @@
             "apply_when": {
                 "%%true": {
                     "%function": {
+                        "name": "isAgencyAdmin",
                         "arguments": [
                             "%%user.data.email"
-                        ],
-                        "name": "isAgencyAdmin"
+                        ]
                     }
                 }
             },
@@ -41,11 +42,11 @@
             "apply_when": {
                 "%%true": {
                     "%function": {
+                        "name": "isAgencyMember",
                         "arguments": [
                             "%%root.agency",
                             "%%user.data.email"
-                        ],
-                        "name": "isAgencyMember"
+                        ]
                     }
                 }
             },

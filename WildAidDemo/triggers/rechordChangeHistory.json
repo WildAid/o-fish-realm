@@ -1,5 +1,6 @@
 {
-    "name": "recordChangeHistory",
+    "id": "5ec54e8d2ac0e6ad8778c529",
+    "name": "rechordChangeHistory",
     "type": "DATABASE",
     "config": {
         "operation_types": [
@@ -13,8 +14,8 @@
         "service_name": "mongodb-atlas",
         "match": {},
         "full_document": true,
-        "unordered": true
+        "unordered": false
     },
     "function_name": "recordChangeHistory",
-    "disabled": true
+    "disabled": false
 }

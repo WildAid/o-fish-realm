@@ -183,9 +183,9 @@ if (!query){
           }
         }
    }
-
+   
    aggregateTerms = [aggregateTerms];
-
+   
    var highlighted = boardingsCollection.aggregate(
     aggregateTerms.concat({
       '$project': {
@@ -194,7 +194,7 @@ if (!query){
         }
       }
     })).toArray();
-
+    
    aggregateTerms = aggregateTerms.concat(aggregation);
 
    var amount = boardingsCollection.aggregate(
