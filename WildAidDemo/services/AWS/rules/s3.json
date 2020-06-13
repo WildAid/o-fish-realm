@@ -1,5 +1,4 @@
 {
-    "id": "5e97152347da37c535c835ae",
     "name": "s3",
     "actions": [
         "s3:PutObject"

@@ -1,5 +1,4 @@
 {
-    "id": "5e60d192f281ab625ec35b66",
     "name": "isGlobalAdmin",
     "private": true,
     "run_as_system": true

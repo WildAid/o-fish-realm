@@ -1,5 +1,4 @@
 {
-    "id": "5ec2cdba2202e961b233a913",
     "name": "sendNotificationEmail",
     "private": true,
     "run_as_system": true

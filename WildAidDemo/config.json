@@ -1,7 +1,6 @@
 {
-    "app_id": "wildaid-vgfja",
     "config_version": 20200603,
-    "name": "WildAid",
+    "name": "WildAidDemo",
     "location": "US-VA",
     "deployment_model": "GLOBAL",
     "security": {},

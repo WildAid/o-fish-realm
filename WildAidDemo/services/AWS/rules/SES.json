@@ -1,5 +1,4 @@
 {
-    "id": "5ec2cb1c2202e961b233a1cc",
     "name": "SES",
     "actions": [
         "ses:*"

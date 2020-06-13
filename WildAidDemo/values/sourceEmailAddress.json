@@ -1,5 +1,4 @@
 {
-    "id": "5ec2cd5c016f49bce10e7f15",
     "name": "sourceEmailAddress",
     "value": "a@clusterdb.com",
     "from_secret": false

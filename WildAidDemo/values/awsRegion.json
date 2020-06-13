@@ -1,5 +1,4 @@
 {
-    "id": "5ec2cf962202e961b233af0c",
     "name": "awsRegion",
     "value": "us-west-2",
     "from_secret": false

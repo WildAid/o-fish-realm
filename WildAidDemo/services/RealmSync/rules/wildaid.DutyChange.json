@@ -7,8 +7,8 @@
         "bsonType": "object",
         "required": [
             "_id",
-            "agency",
             "date",
+            "agency",
             "status"
         ],
         "properties": {

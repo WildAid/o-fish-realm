@@ -1,5 +1,4 @@
 {
-    "id": "5ecfeb4cab4eb2e2883825fc",
     "name": "RealmSync",
     "type": "mongodb-atlas",
     "config": {
