@@ -10,7 +10,7 @@
             "database_name": "wildaid",
             "partition": {
                 "key": "agency",
-                "type": "",
+                "type": "string",
                 "permissions": {
                     "read": true,
                     "write": true
