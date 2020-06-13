@@ -11,6 +11,7 @@
             "partition": {
                 "key": "agency",
                 "type": "string",
+                "required": true,
                 "permissions": {
                     "read": true,
                     "write": true
