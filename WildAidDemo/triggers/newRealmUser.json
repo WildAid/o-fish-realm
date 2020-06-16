@@ -1,0 +1,13 @@
+{
+    "id": "5ee900c51d85b5e093ce1ea5",
+    "name": "newRealmUser",
+    "type": "AUTHENTICATION",
+    "config": {
+        "operation_type": "CREATE",
+        "providers": [
+            "local-userpass"
+        ]
+    },
+    "function_name": "linkUser",
+    "disabled": false
+}
