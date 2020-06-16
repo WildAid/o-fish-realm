@@ -45,5 +45,51 @@
             }
         }
     ],
-    "schema": {}
+    "schema": {
+        "title": "User",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "agency": {
+                "bsonType": "object",
+                "properties": {
+                    "admin": {
+                        "bsonType": "bool"
+                    },
+                    "name": {
+                        "bsonType": "string"
+                    }
+                }
+            },
+            "createdOn": {
+                "bsonType": "date"
+            },
+            "email": {
+                "bsonType": "string"
+            },
+            "global": {
+                "bsonType": "object",
+                "properties": {
+                    "admin": {
+                        "bsonType": "bool"
+                    }
+                }
+            },
+            "name": {
+                "bsonType": "object",
+                "properties": {
+                    "first": {
+                        "bsonType": "string"
+                    },
+                    "last": {
+                        "bsonType": "string"
+                    }
+                }
+            },
+            "realmUserID": {
+                "bsonType": "string"
+            }
+        }
+    }
 }
