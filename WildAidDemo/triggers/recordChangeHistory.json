@@ -13,7 +13,7 @@
         "service_name": "mongodb-atlas",
         "match": {},
         "full_document": true,
-        "unordered": true
+        "unordered": false
     },
     "function_name": "recordChangeHistory",
     "disabled": true
