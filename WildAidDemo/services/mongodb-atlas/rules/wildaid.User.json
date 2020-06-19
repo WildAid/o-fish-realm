@@ -63,7 +63,7 @@
                 }
             },
             "createdOn": {
-                "bsonType": "date"
+                "bsonType": "string"
             },
             "email": {
                 "bsonType": "string"
