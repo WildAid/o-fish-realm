@@ -1,17 +1,15 @@
 {
     "database": "wildaid",
     "collection": "DutyChange",
-    "roles": [
-        {
-            "name": "default",
-            "apply_when": {},
-            "insert": true,
-            "delete": true,
-            "additional_fields": {}
-        }
-    ],
     "schema": {
+        "title": "DutyChange",
         "bsonType": "object",
+        "required": [
+            "_id",
+            "agency",
+            "date",
+            "status"
+        ],
         "properties": {
             "_id": {
                 "bsonType": "objectId"
@@ -19,20 +17,20 @@
             "agency": {
                 "bsonType": "string"
             },
-            "date": {
-                "bsonType": "date"
-            },
-            "status": {
-                "bsonType": "string"
-            },
             "user": {
+                "title": "User",
                 "bsonType": "object",
+                "required": [
+                    "email"
+                ],
                 "properties": {
-                    "email": {
-                        "bsonType": "string"
-                    },
                     "name": {
+                        "title": "Name",
                         "bsonType": "object",
+                        "required": [
+                            "first",
+                            "last"
+                        ],
                         "properties": {
                             "first": {
                                 "bsonType": "string"
@@ -40,26 +38,19 @@
                             "last": {
                                 "bsonType": "string"
                             }
-                        },
-                        "required": [
-                            "last",
-                            "first"
-                        ],
-                        "title": "Name"
+                        }
+                    },
+                    "email": {
+                        "bsonType": "string"
                     }
-                },
-                "required": [
-                    "email"
-                ],
-                "title": "User"
+                }
+            },
+            "date": {
+                "bsonType": "date"
+            },
+            "status": {
+                "bsonType": "string"
             }
-        },
-        "required": [
-            "_id",
-            "agency",
-            "date",
-            "status"
-        ],
-        "title": "DutyChange"
+        }
     }
 }

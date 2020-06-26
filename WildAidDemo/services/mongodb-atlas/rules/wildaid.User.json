@@ -3,6 +3,17 @@
     "collection": "User",
     "roles": [
         {
+            "name": "DeleteMe",
+            "apply_when": {},
+            "fields": {
+                "global": {}
+            },
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
+        },
+        {
             "name": "Global Admin",
             "apply_when": {
                 "%%true": {
@@ -63,7 +74,7 @@
                 }
             },
             "createdOn": {
-                "bsonType": "string"
+                "bsonType": "date"
             },
             "email": {
                 "bsonType": "string"

@@ -1,8 +1,23 @@
 {
     "database": "wildaid",
     "collection": "BoardingReports",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
+        }
+    ],
     "schema": {
+        "title": "Report",
         "bsonType": "object",
+        "required": [
+            "_id",
+            "agency",
+            "timestamp"
+        ],
         "properties": {
             "_id": {
                 "bsonType": "objectId"
@@ -10,48 +25,232 @@
             "agency": {
                 "bsonType": "string"
             },
-            "captain": {
+            "reportingOfficer": {
+                "title": "User",
                 "bsonType": "object",
+                "required": [
+                    "email"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "bsonType": "object",
+                        "required": [
+                            "first",
+                            "last"
+                        ],
+                        "properties": {
+                            "first": {
+                                "bsonType": "string"
+                            },
+                            "last": {
+                                "bsonType": "string"
+                            }
+                        }
+                    },
+                    "email": {
+                        "bsonType": "string"
+                    }
+                }
+            },
+            "timestamp": {
+                "bsonType": "date"
+            },
+            "location": {
+                "title": "Location",
+                "bsonType": "object",
+                "required": [
+                    "latitude",
+                    "longitude"
+                ],
+                "properties": {
+                    "latitude": {
+                        "bsonType": "double"
+                    },
+                    "longitude": {
+                        "bsonType": "double"
+                    }
+                }
+            },
+            "date": {
+                "bsonType": "date"
+            },
+            "vessel": {
+                "title": "Boat",
+                "bsonType": "object",
+                "required": [
+                    "name",
+                    "homePort",
+                    "nationality",
+                    "permitNumber"
+                ],
                 "properties": {
                     "attachments": {
+                        "title": "Attachments",
                         "bsonType": "object",
+                        "required": [],
                         "properties": {
-                            "notes": {
-                                "bsonType": "array",
-                                "items": {
-                                    "bsonType": "string"
-                                }
-                            },
                             "photoIDs": {
                                 "bsonType": "array",
                                 "items": {
                                     "bsonType": "string"
                                 }
+                            },
+                            "notes": {
+                                "bsonType": "array",
+                                "items": {
+                                    "bsonType": "string"
+                                }
                             }
-                        },
-                        "required": [],
-                        "title": "Attachments"
-                    },
-                    "license": {
-                        "bsonType": "string"
+                        }
                     },
                     "name": {
                         "bsonType": "string"
+                    },
+                    "homePort": {
+                        "bsonType": "string"
+                    },
+                    "nationality": {
+                        "bsonType": "string"
+                    },
+                    "permitNumber": {
+                        "bsonType": "string"
+                    },
+                    "ems": {
+                        "bsonType": "array",
+                        "items": {
+                            "title": "EMS",
+                            "bsonType": "object",
+                            "required": [
+                                "emsType",
+                                "emsDescription",
+                                "registryNumber"
+                            ],
+                            "properties": {
+                                "emsType": {
+                                    "bsonType": "string"
+                                },
+                                "emsDescription": {
+                                    "bsonType": "string"
+                                },
+                                "registryNumber": {
+                                    "bsonType": "string"
+                                },
+                                "attachments": {
+                                    "title": "Attachments",
+                                    "bsonType": "object",
+                                    "required": [],
+                                    "properties": {
+                                        "photoIDs": {
+                                            "bsonType": "array",
+                                            "items": {
+                                                "bsonType": "string"
+                                            }
+                                        },
+                                        "notes": {
+                                            "bsonType": "array",
+                                            "items": {
+                                                "bsonType": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "lastDelivery": {
+                        "title": "Delivery",
+                        "bsonType": "object",
+                        "required": [
+                            "date",
+                            "location",
+                            "business"
+                        ],
+                        "properties": {
+                            "date": {
+                                "bsonType": "date"
+                            },
+                            "location": {
+                                "bsonType": "string"
+                            },
+                            "business": {
+                                "bsonType": "string"
+                            },
+                            "attachments": {
+                                "title": "Attachments",
+                                "bsonType": "object",
+                                "required": [],
+                                "properties": {
+                                    "photoIDs": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    },
+                                    "notes": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                },
+                }
+            },
+            "captain": {
+                "title": "CrewMember",
+                "bsonType": "object",
                 "required": [
                     "name",
                     "license"
                 ],
-                "title": "CrewMember"
+                "properties": {
+                    "name": {
+                        "bsonType": "string"
+                    },
+                    "license": {
+                        "bsonType": "string"
+                    },
+                    "attachments": {
+                        "title": "Attachments",
+                        "bsonType": "object",
+                        "required": [],
+                        "properties": {
+                            "photoIDs": {
+                                "bsonType": "array",
+                                "items": {
+                                    "bsonType": "string"
+                                }
+                            },
+                            "notes": {
+                                "bsonType": "array",
+                                "items": {
+                                    "bsonType": "string"
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "crew": {
                 "bsonType": "array",
                 "items": {
+                    "title": "CrewMember",
                     "bsonType": "object",
+                    "required": [
+                        "license",
+                        "name"
+                    ],
                     "properties": {
+                        "license": {
+                            "bsonType": "string"
+                        },
                         "attachments": {
+                            "title": "Attachments",
                             "bsonType": "object",
+                            "required": [],
                             "properties": {
                                 "notes": {
                                     "bsonType": "array",
@@ -65,370 +264,22 @@
                                         "bsonType": "string"
                                     }
                                 }
-                            },
-                            "required": [],
-                            "title": "Attachments"
-                        },
-                        "license": {
-                            "bsonType": "string"
+                            }
                         },
                         "name": {
                             "bsonType": "string"
                         }
-                    },
-                    "required": [
-                        "name",
-                        "license"
-                    ],
-                    "title": "CrewMember"
+                    }
                 }
-            },
-            "date": {
-                "bsonType": "date"
-            },
-            "inspection": {
-                "bsonType": "object",
-                "properties": {
-                    "activity": {
-                        "bsonType": "object",
-                        "properties": {
-                            "attachments": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "notes": {
-                                        "bsonType": "array",
-                                        "items": {
-                                            "bsonType": "string"
-                                        }
-                                    },
-                                    "photoIDs": {
-                                        "bsonType": "array",
-                                        "items": {
-                                            "bsonType": "string"
-                                        }
-                                    }
-                                },
-                                "required": [],
-                                "title": "Attachments"
-                            },
-                            "name": {
-                                "bsonType": "string"
-                            }
-                        },
-                        "required": [
-                            "name"
-                        ],
-                        "title": "Activity"
-                    },
-                    "actualCatch": {
-                        "bsonType": "array",
-                        "items": {
-                            "bsonType": "object",
-                            "properties": {
-                                "attachments": {
-                                    "bsonType": "object",
-                                    "properties": {
-                                        "notes": {
-                                            "bsonType": "array",
-                                            "items": {
-                                                "bsonType": "string"
-                                            }
-                                        },
-                                        "photoIDs": {
-                                            "bsonType": "array",
-                                            "items": {
-                                                "bsonType": "string"
-                                            }
-                                        }
-                                    },
-                                    "required": [],
-                                    "title": "Attachments"
-                                },
-                                "fish": {
-                                    "bsonType": "string"
-                                },
-                                "number": {
-                                    "bsonType": "long"
-                                },
-                                "unit": {
-                                    "bsonType": "string"
-                                },
-                                "weight": {
-                                    "bsonType": "double"
-                                }
-                            },
-                            "required": [
-                                "weight",
-                                "unit",
-                                "fish",
-                                "number"
-                            ],
-                            "title": "Catch"
-                        }
-                    },
-                    "attachments": {
-                        "bsonType": "object",
-                        "properties": {
-                            "notes": {
-                                "bsonType": "array",
-                                "items": {
-                                    "bsonType": "string"
-                                }
-                            },
-                            "photoIDs": {
-                                "bsonType": "array",
-                                "items": {
-                                    "bsonType": "string"
-                                }
-                            }
-                        },
-                        "required": [],
-                        "title": "Attachments"
-                    },
-                    "fishery": {
-                        "bsonType": "object",
-                        "properties": {
-                            "attachments": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "notes": {
-                                        "bsonType": "array",
-                                        "items": {
-                                            "bsonType": "string"
-                                        }
-                                    },
-                                    "photoIDs": {
-                                        "bsonType": "array",
-                                        "items": {
-                                            "bsonType": "string"
-                                        }
-                                    }
-                                },
-                                "required": [],
-                                "title": "Attachments"
-                            },
-                            "name": {
-                                "bsonType": "string"
-                            }
-                        },
-                        "required": [
-                            "name"
-                        ],
-                        "title": "Fishery"
-                    },
-                    "gearType": {
-                        "bsonType": "object",
-                        "properties": {
-                            "attachments": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "notes": {
-                                        "bsonType": "array",
-                                        "items": {
-                                            "bsonType": "string"
-                                        }
-                                    },
-                                    "photoIDs": {
-                                        "bsonType": "array",
-                                        "items": {
-                                            "bsonType": "string"
-                                        }
-                                    }
-                                },
-                                "required": [],
-                                "title": "Attachments"
-                            },
-                            "name": {
-                                "bsonType": "string"
-                            }
-                        },
-                        "required": [
-                            "name"
-                        ],
-                        "title": "GearType"
-                    },
-                    "summary": {
-                        "bsonType": "object",
-                        "properties": {
-                            "safetyLevel": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "amberReason": {
-                                        "bsonType": "string"
-                                    },
-                                    "attachments": {
-                                        "bsonType": "object",
-                                        "properties": {
-                                            "notes": {
-                                                "bsonType": "array",
-                                                "items": {
-                                                    "bsonType": "string"
-                                                }
-                                            },
-                                            "photoIDs": {
-                                                "bsonType": "array",
-                                                "items": {
-                                                    "bsonType": "string"
-                                                }
-                                            }
-                                        },
-                                        "required": [],
-                                        "title": "Attachments"
-                                    },
-                                    "level": {
-                                        "bsonType": "string"
-                                    }
-                                },
-                                "required": [
-                                    "level",
-                                    "amberReason"
-                                ],
-                                "title": "SafetyLevel"
-                            },
-                            "seizures": {
-                                "bsonType": "object",
-                                "properties": {
-                                    "attachments": {
-                                        "bsonType": "object",
-                                        "properties": {
-                                            "notes": {
-                                                "bsonType": "array",
-                                                "items": {
-                                                    "bsonType": "string"
-                                                }
-                                            },
-                                            "photoIDs": {
-                                                "bsonType": "array",
-                                                "items": {
-                                                    "bsonType": "string"
-                                                }
-                                            }
-                                        },
-                                        "required": [],
-                                        "title": "Attachments"
-                                    },
-                                    "text": {
-                                        "bsonType": "string"
-                                    }
-                                },
-                                "required": [
-                                    "text"
-                                ],
-                                "title": "Seizures"
-                            },
-                            "violations": {
-                                "bsonType": "array",
-                                "items": {
-                                    "bsonType": "object",
-                                    "properties": {
-                                        "attachments": {
-                                            "bsonType": "object",
-                                            "properties": {
-                                                "notes": {
-                                                    "bsonType": "array",
-                                                    "items": {
-                                                        "bsonType": "string"
-                                                    }
-                                                },
-                                                "photoIDs": {
-                                                    "bsonType": "array",
-                                                    "items": {
-                                                        "bsonType": "string"
-                                                    }
-                                                }
-                                            },
-                                            "required": [],
-                                            "title": "Attachments"
-                                        },
-                                        "crewMember": {
-                                            "bsonType": "object",
-                                            "properties": {
-                                                "attachments": {
-                                                    "bsonType": "object",
-                                                    "properties": {
-                                                        "notes": {
-                                                            "bsonType": "array",
-                                                            "items": {
-                                                                "bsonType": "string"
-                                                            }
-                                                        },
-                                                        "photoIDs": {
-                                                            "bsonType": "array",
-                                                            "items": {
-                                                                "bsonType": "string"
-                                                            }
-                                                        }
-                                                    },
-                                                    "required": [],
-                                                    "title": "Attachments"
-                                                },
-                                                "license": {
-                                                    "bsonType": "string"
-                                                },
-                                                "name": {
-                                                    "bsonType": "string"
-                                                }
-                                            },
-                                            "required": [
-                                                "name",
-                                                "license"
-                                            ],
-                                            "title": "CrewMember"
-                                        },
-                                        "disposition": {
-                                            "bsonType": "string"
-                                        },
-                                        "offence": {
-                                            "bsonType": "object",
-                                            "properties": {
-                                                "code": {
-                                                    "bsonType": "string"
-                                                },
-                                                "explanation": {
-                                                    "bsonType": "string"
-                                                }
-                                            },
-                                            "required": [
-                                                "code",
-                                                "explanation"
-                                            ],
-                                            "title": "Offence"
-                                        }
-                                    },
-                                    "required": [
-                                        "disposition"
-                                    ],
-                                    "title": "Violation"
-                                }
-                            }
-                        },
-                        "required": [],
-                        "title": "Summary"
-                    }
-                },
-                "required": [],
-                "title": "Inspection"
-            },
-            "location": {
-                "bsonType": "object",
-                "properties": {
-                    "latitude": {
-                        "bsonType": "double"
-                    },
-                    "longitude": {
-                        "bsonType": "double"
-                    }
-                },
-                "required": [
-                    "latitude",
-                    "longitude"
-                ],
-                "title": "Location"
             },
             "notes": {
                 "bsonType": "array",
                 "items": {
+                    "title": "AnnotatedNote",
                     "bsonType": "object",
+                    "required": [
+                        "note"
+                    ],
                     "properties": {
                         "note": {
                             "bsonType": "string"
@@ -439,174 +290,332 @@
                                 "bsonType": "string"
                             }
                         }
-                    },
-                    "required": [
-                        "note"
-                    ],
-                    "title": "AnnotatedNote"
+                    }
                 }
             },
-            "reportingOfficer": {
+            "inspection": {
+                "title": "Inspection",
                 "bsonType": "object",
+                "required": [],
                 "properties": {
-                    "email": {
-                        "bsonType": "string"
-                    },
-                    "name": {
+                    "fishery": {
+                        "title": "Fishery",
                         "bsonType": "object",
-                        "properties": {
-                            "first": {
-                                "bsonType": "string"
-                            },
-                            "last": {
-                                "bsonType": "string"
-                            }
-                        },
                         "required": [
-                            "last",
-                            "first"
+                            "name"
                         ],
-                        "title": "Name"
-                    }
-                },
-                "required": [
-                    "email"
-                ],
-                "title": "User"
-            },
-            "timestamp": {
-                "bsonType": "date"
-            },
-            "vessel": {
-                "bsonType": "object",
-                "properties": {
-                    "attachments": {
-                        "bsonType": "object",
                         "properties": {
-                            "notes": {
-                                "bsonType": "array",
-                                "items": {
-                                    "bsonType": "string"
-                                }
+                            "name": {
+                                "bsonType": "string"
                             },
-                            "photoIDs": {
-                                "bsonType": "array",
-                                "items": {
-                                    "bsonType": "string"
-                                }
-                            }
-                        },
-                        "required": [],
-                        "title": "Attachments"
-                    },
-                    "ems": {
-                        "bsonType": "array",
-                        "items": {
-                            "bsonType": "object",
-                            "properties": {
-                                "attachments": {
-                                    "bsonType": "object",
-                                    "properties": {
-                                        "notes": {
-                                            "bsonType": "array",
-                                            "items": {
-                                                "bsonType": "string"
-                                            }
-                                        },
-                                        "photoIDs": {
-                                            "bsonType": "array",
-                                            "items": {
-                                                "bsonType": "string"
-                                            }
-                                        }
-                                    },
-                                    "required": [],
-                                    "title": "Attachments"
-                                },
-                                "emsDescription": {
-                                    "bsonType": "string"
-                                },
-                                "emsType": {
-                                    "bsonType": "string"
-                                },
-                                "registryNumber": {
-                                    "bsonType": "string"
-                                }
-                            },
-                            "required": [
-                                "emsDescription",
-                                "registryNumber",
-                                "emsType"
-                            ],
-                            "title": "EMS"
-                        }
-                    },
-                    "homePort": {
-                        "bsonType": "string"
-                    },
-                    "lastDelivery": {
-                        "bsonType": "object",
-                        "properties": {
                             "attachments": {
+                                "title": "Attachments",
                                 "bsonType": "object",
+                                "required": [],
                                 "properties": {
-                                    "notes": {
-                                        "bsonType": "array",
-                                        "items": {
-                                            "bsonType": "string"
-                                        }
-                                    },
                                     "photoIDs": {
                                         "bsonType": "array",
                                         "items": {
                                             "bsonType": "string"
                                         }
+                                    },
+                                    "notes": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "gearType": {
+                        "title": "GearType",
+                        "bsonType": "object",
+                        "required": [
+                            "name"
+                        ],
+                        "properties": {
+                            "name": {
+                                "bsonType": "string"
+                            },
+                            "attachments": {
+                                "title": "Attachments",
+                                "bsonType": "object",
+                                "required": [],
+                                "properties": {
+                                    "photoIDs": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    },
+                                    "notes": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "actualCatch": {
+                        "bsonType": "array",
+                        "items": {
+                            "title": "Catch",
+                            "bsonType": "object",
+                            "required": [
+                                "fish",
+                                "number",
+                                "weight",
+                                "unit"
+                            ],
+                            "properties": {
+                                "attachments": {
+                                    "title": "Attachments",
+                                    "bsonType": "object",
+                                    "required": [],
+                                    "properties": {
+                                        "photoIDs": {
+                                            "bsonType": "array",
+                                            "items": {
+                                                "bsonType": "string"
+                                            }
+                                        },
+                                        "notes": {
+                                            "bsonType": "array",
+                                            "items": {
+                                                "bsonType": "string"
+                                            }
+                                        }
                                     }
                                 },
+                                "fish": {
+                                    "bsonType": "string"
+                                },
+                                "number": {
+                                    "bsonType": "long"
+                                },
+                                "weight": {
+                                    "bsonType": "double"
+                                },
+                                "unit": {
+                                    "bsonType": "string"
+                                }
+                            }
+                        }
+                    },
+                    "summary": {
+                        "title": "Summary",
+                        "bsonType": "object",
+                        "required": [],
+                        "properties": {
+                            "safetyLevel": {
+                                "title": "SafetyLevel",
+                                "bsonType": "object",
+                                "required": [
+                                    "level",
+                                    "amberReason"
+                                ],
+                                "properties": {
+                                    "level": {
+                                        "bsonType": "string"
+                                    },
+                                    "amberReason": {
+                                        "bsonType": "string"
+                                    },
+                                    "attachments": {
+                                        "title": "Attachments",
+                                        "bsonType": "object",
+                                        "required": [],
+                                        "properties": {
+                                            "notes": {
+                                                "bsonType": "array",
+                                                "items": {
+                                                    "bsonType": "string"
+                                                }
+                                            },
+                                            "photoIDs": {
+                                                "bsonType": "array",
+                                                "items": {
+                                                    "bsonType": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "violations": {
+                                "bsonType": "array",
+                                "items": {
+                                    "title": "Violation",
+                                    "bsonType": "object",
+                                    "required": [
+                                        "disposition"
+                                    ],
+                                    "properties": {
+                                        "disposition": {
+                                            "bsonType": "string"
+                                        },
+                                        "offence": {
+                                            "title": "Offence",
+                                            "bsonType": "object",
+                                            "required": [
+                                                "code",
+                                                "explanation"
+                                            ],
+                                            "properties": {
+                                                "code": {
+                                                    "bsonType": "string"
+                                                },
+                                                "explanation": {
+                                                    "bsonType": "string"
+                                                }
+                                            }
+                                        },
+                                        "crewMember": {
+                                            "title": "CrewMember",
+                                            "bsonType": "object",
+                                            "required": [
+                                                "name",
+                                                "license"
+                                            ],
+                                            "properties": {
+                                                "name": {
+                                                    "bsonType": "string"
+                                                },
+                                                "license": {
+                                                    "bsonType": "string"
+                                                },
+                                                "attachments": {
+                                                    "title": "Attachments",
+                                                    "bsonType": "object",
+                                                    "required": [],
+                                                    "properties": {
+                                                        "photoIDs": {
+                                                            "bsonType": "array",
+                                                            "items": {
+                                                                "bsonType": "string"
+                                                            }
+                                                        },
+                                                        "notes": {
+                                                            "bsonType": "array",
+                                                            "items": {
+                                                                "bsonType": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "attachments": {
+                                            "title": "Attachments",
+                                            "bsonType": "object",
+                                            "required": [],
+                                            "properties": {
+                                                "photoIDs": {
+                                                    "bsonType": "array",
+                                                    "items": {
+                                                        "bsonType": "string"
+                                                    }
+                                                },
+                                                "notes": {
+                                                    "bsonType": "array",
+                                                    "items": {
+                                                        "bsonType": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "seizures": {
+                                "title": "Seizures",
+                                "bsonType": "object",
+                                "required": [
+                                    "text"
+                                ],
+                                "properties": {
+                                    "text": {
+                                        "bsonType": "string"
+                                    },
+                                    "attachments": {
+                                        "title": "Attachments",
+                                        "bsonType": "object",
+                                        "required": [],
+                                        "properties": {
+                                            "photoIDs": {
+                                                "bsonType": "array",
+                                                "items": {
+                                                    "bsonType": "string"
+                                                }
+                                            },
+                                            "notes": {
+                                                "bsonType": "array",
+                                                "items": {
+                                                    "bsonType": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "attachments": {
+                        "title": "Attachments",
+                        "bsonType": "object",
+                        "required": [],
+                        "properties": {
+                            "photoIDs": {
+                                "bsonType": "array",
+                                "items": {
+                                    "bsonType": "string"
+                                }
+                            },
+                            "notes": {
+                                "bsonType": "array",
+                                "items": {
+                                    "bsonType": "string"
+                                }
+                            }
+                        }
+                    },
+                    "activity": {
+                        "title": "Activity",
+                        "bsonType": "object",
+                        "required": [
+                            "name"
+                        ],
+                        "properties": {
+                            "attachments": {
+                                "title": "Attachments",
+                                "bsonType": "object",
                                 "required": [],
-                                "title": "Attachments"
+                                "properties": {
+                                    "photoIDs": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    },
+                                    "notes": {
+                                        "bsonType": "array",
+                                        "items": {
+                                            "bsonType": "string"
+                                        }
+                                    }
+                                }
                             },
-                            "business": {
-                                "bsonType": "string"
-                            },
-                            "date": {
-                                "bsonType": "date"
-                            },
-                            "location": {
+                            "name": {
                                 "bsonType": "string"
                             }
-                        },
-                        "required": [
-                            "date",
-                            "location",
-                            "business"
-                        ],
-                        "title": "Delivery"
-                    },
-                    "name": {
-                        "bsonType": "string"
-                    },
-                    "nationality": {
-                        "bsonType": "string"
-                    },
-                    "permitNumber": {
-                        "bsonType": "string"
+                        }
                     }
-                },
-                "required": [
-                    "name",
-                    "homePort",
-                    "nationality",
-                    "permitNumber"
-                ],
-                "title": "Boat"
+                }
             }
-        },
-        "required": [
-            "_id",
-            "agency",
-            "timestamp"
-        ],
-        "title": "Report"
+        }
     }
 }
