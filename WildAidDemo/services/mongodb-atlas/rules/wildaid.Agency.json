@@ -20,5 +20,21 @@
             "additional_fields": {}
         }
     ],
-    "schema": {}
+    "schema": {
+        "title": "Agency",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "active": {
+                "bsonType": "bool"
+            },
+            "name": {
+                "bsonType": "string"
+            },
+            "description": {
+                "bsonType": "string"
+            }
+        }
+    }
 }

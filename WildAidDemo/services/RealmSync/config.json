@@ -2,8 +2,22 @@
     "name": "RealmSync",
     "type": "mongodb-atlas",
     "config": {
-        "clusterName": "WildAidDemo",
+        "clusterName": "WildAid-O-Fish",
         "readPreference": "primary",
+        "sync": {
+            "state": "enabled",
+            "database_name": "wildaid",
+            "partition": {
+                "key": "agency",
+                "type": "string",
+                "required": true,
+                "permissions": {
+                    "read": true,
+                    "write": true
+                }
+            },
+            "last_disabled": 1593158745
+        },
         "wireProtocolEnabled": false
     },
     "version": 1
