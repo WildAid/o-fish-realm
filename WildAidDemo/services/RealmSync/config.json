@@ -2,7 +2,7 @@
     "name": "RealmSync",
     "type": "mongodb-atlas",
     "config": {
-        "clusterName": "WildAid-O-Fish",
+        "clusterName": "WildAidDemo",
         "readPreference": "primary",
         "sync": {
             "state": "enabled",
