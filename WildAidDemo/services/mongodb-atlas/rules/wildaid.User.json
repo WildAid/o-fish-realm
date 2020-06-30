@@ -62,6 +62,17 @@
                     }
                 }
             },
+            "group": {
+                "bsonType": "object",
+                "properties": {
+                    "admin": {
+                        "bsonType": "bool"
+                    },
+                    "name": {
+                        "bsonType": "string"
+                    }
+                }
+            },
             "createdOn": {
                 "bsonType": "date"
             },
