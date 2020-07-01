@@ -40,6 +40,12 @@
 			},
 			"site": {
 				"bsonType": "string"
+			},
+			"partnerAgencies": {
+        			"bsonType": "array",
+        			"items": {
+			        	"bsonType": "string"
+        			}
 			}
 		},
 		"required": [
