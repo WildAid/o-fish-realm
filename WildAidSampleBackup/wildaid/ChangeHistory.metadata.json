@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_"}],"uuid":"c9d03ea553374842affb960efd4259ae"}
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_"},{"v":2,"key":{"dateCreated":1},"name":"dateCreated_1"},{"v":2,"key":{"originalDocument._id":1},"name":"originalDocument._id_1"},{"v":2,"key":{"originalDocument.agency":1},"name":"originalDocument.agency_1"}],"uuid":"c9d03ea553374842affb960efd4259ae"}
