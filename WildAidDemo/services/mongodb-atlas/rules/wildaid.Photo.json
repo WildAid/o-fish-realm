@@ -56,5 +56,38 @@
             "additional_fields": {}
         }
     ],
-    "schema": {}
+    "schema": {
+      "title": "Photo",
+  "bsonType": "object",
+  "required": [
+    "_id",
+    "agency",
+    "pictureURL",
+    "referencingReportID",
+    "date"
+  ],
+  "properties": {
+    "_id": {
+      "bsonType": "objectId"
+    },
+    "agency": {
+      "bsonType": "string"
+    },
+    "thumbNail": {
+      "bsonType": "binData"
+    },
+    "picture": {
+      "bsonType": "binData"
+    },
+    "pictureURL": {
+      "bsonType": "string"
+    },
+    "referencingReportID": {
+      "bsonType": "string"
+    },
+    "date": {
+      "bsonType": "date"
+    }
+  }
+    }
 }
