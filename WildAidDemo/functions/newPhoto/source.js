@@ -3,7 +3,7 @@ exports = function(changeEvent){
   const image = fullDocument.picture;
   const agency = fullDocument.agency;
   const id = fullDocument._id;
-  const imageName = `${agency}-${id}`;
+  const imageName = `${id}`;
   
   console.log(`Requesting upload of image: ${imageName}`);
   context.functions.execute("uploadImageToS3", imageName, image)
