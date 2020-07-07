@@ -98,8 +98,8 @@
                     }
                 }
             },
-            "profilePic": {
-                "bsonType": "binData"
+            "profilePicId": {
+                "bsonType": "string"
             },
             "realmUserID": {
                 "bsonType": "string"
