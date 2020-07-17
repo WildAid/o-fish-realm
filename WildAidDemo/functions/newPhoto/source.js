@@ -12,7 +12,7 @@ exports = function(changeEvent){
     const bucketName = context.values.get("photoBucket");
     const imageLink = `https://${bucketName}.s3.amazonaws.com/${imageName}`;
     const collection = context.services.get('mongodb-atlas').db("wildaid").collection("Photo");
-    collection.updateOne({"_id": fullDocument._id}, {$set: {"pictureURL": imageLink, picture: null}});
+    collection.updateOne({"_id": fullDocument._id}, {$set: {"pictureURL": imageLink}, $unset: {picture: null}});
   },
   (error) => {
     console.error(`Failed to upload image to S3: ${error}`);
