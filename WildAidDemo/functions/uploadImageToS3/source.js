@@ -1,5 +1,5 @@
 exports = function(name, image) {
-  const s3 = context.services.get('AWS').s3("us-west-2");
+  const s3 = context.services.get('AWS').s3(context.values.get("awsRegion"));
   const bucket = context.values.get("photoBucket");
   console.log(`Bucket: ${bucket}`);
   return s3.PutObject({
