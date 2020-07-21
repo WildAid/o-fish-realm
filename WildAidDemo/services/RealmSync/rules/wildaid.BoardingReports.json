@@ -57,21 +57,11 @@
                 "bsonType": "date"
             },
             "location": {
-                "title": "Location",
-                "bsonType": "object",
-                "required": [
-                    "latitude",
-                    "longitude"
-                ],
-                "properties": {
-                    "latitude": {
-                        "bsonType": "double"
-                    },
-                    "longitude": {
-                        "bsonType": "double"
-                    }
+                "bsonType": "array",
+                "items": {
+                  "bsonType": "double"
                 }
-            },
+              },
             "date": {
                 "bsonType": "date"
             },

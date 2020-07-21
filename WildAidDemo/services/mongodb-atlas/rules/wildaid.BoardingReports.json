@@ -465,21 +465,11 @@
                 "title": "Inspection"
             },
             "location": {
-                "bsonType": "object",
-                "properties": {
-                    "latitude": {
-                        "bsonType": "double"
-                    },
-                    "longitude": {
-                        "bsonType": "double"
-                    }
-                },
-                "required": [
-                    "longitude",
-                    "latitude"
-                ],
-                "title": "Location"
-            },
+                "bsonType": "array",
+                "items": {
+                  "bsonType": "double"
+                }
+              },
             "notes": {
                 "bsonType": "array",
                 "items": {
