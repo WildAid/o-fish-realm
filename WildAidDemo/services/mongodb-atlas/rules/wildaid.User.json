@@ -22,28 +22,29 @@
             "delete": true,
             "additional_fields": {}
         },
-        {
-            "name": "Agency Admin",
-            "apply_when": {
-                "%%true": {
-                    "%function": {
-                        "arguments": [
-                            "%%root.agency",
-                            "%%user.data.email"
-                        ],
-                        "name": "isAgencyAdmin"
-                    }
-                }
-            },
-            "fields": {
-                "global": {}
-            },
-            "insert": true,
-            "delete": true,
-            "additional_fields": {
-                "write": true
-            }
+         {
+      "name": "Agency Admin",
+      "apply_when": {
+        "%%true": {
+          "%function": {
+            "arguments": [
+              "%%root.agency",
+              "%%user.data.email"
+            ],
+            "name": "isAgencyAdmin"
+          }
         }
+      },
+      "insert": true,
+      "delete": true,
+      "read": true,
+      "fields": {
+        "global": {}
+      },
+      "additional_fields": {
+        "write": true
+      }
+    }
     ],
     "schema": {
         "title": "User",
