@@ -38,23 +38,28 @@
             "additional_fields": {}
         },
         {
-            "name": "Agency Member",
-            "apply_when": {
-                "%%true": {
-                    "%function": {
-                        "arguments": [
-                            "%%root.agency",
-                            "%%user.data.email"
-                        ],
-                        "name": "isAgencyMember"
-                    }
-                }
-            },
-            "read": true,
-            "insert": true,
-            "delete": true,
-            "additional_fields": {}
+      "name": "Agency Member",
+      "apply_when": {
+        "%%true": {
+          "%function": {
+            "arguments": [
+              "%%root.agency",
+              "%%user.data.email"
+            ],
+            "name": "isAgencyMember"
+          }
         }
+      },
+      "insert": true,
+      "delete": true,
+      "read": true,
+      "fields": {
+        "picture": {
+          "write": true
+        }
+      },
+      "additional_fields": {}
+    }
     ],
     "schema": {
       "title": "Photo",
