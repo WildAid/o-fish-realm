@@ -8,7 +8,7 @@ exports = function(emailAddress){
   
   return userCollection.findOne({email: emailAddress})
   .then ( userDoc => { 
-    console.log(`${emailAddress} is a global admin - ${userDoc.global.admin}`);
-    return (userDoc.global.admin);
+    console.log(`${emailAddress} is a global admin? - ${userDoc.global && userDoc.global.admin}`);
+    return (userDoc.global && userDoc.global.admin);
   }).catch( e => { console.log(e); return false; }); 
 };
