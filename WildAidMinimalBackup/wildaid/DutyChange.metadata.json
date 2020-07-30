@@ -1,0 +1,1 @@
+{"options":{"recordPreImages":true},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_"},{"v":2,"key":{"user.email":1},"name":"user.email_1"},{"v":2,"key":{"date":1},"name":"date_1"}],"uuid":"01e650aaff734949a90afb7fd04fa4d0"}

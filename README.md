@@ -24,7 +24,7 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
 ## <A NAME="standalone">Import this repository as standalone code</a>
 ### How to import and configure your own MongoDB Realm app
 
-1. Create your [Atlas Cluster](https://cloud.mongodb.com) and [Realm App](https://cloud.mongodb.com). Optionally, [import sample data](https://wildaid.github.io/)
+1. Create your [Atlas Cluster](https://cloud.mongodb.com) and [Realm App](https://cloud.mongodb.com). [Import sample data](https://wildaid.github.io/) (use `WildAidMinimalBackup` if you don't need thousands of sample documents)
 1. Take a note of the Realm App-Id `appname-xxxxx` 
 1. Generate an API key pair for your project and note the public and private IDs (Access Manager/Project) from the Atlas UI
 1. Whitelist your IP address for API access (through the Atlas UI)
