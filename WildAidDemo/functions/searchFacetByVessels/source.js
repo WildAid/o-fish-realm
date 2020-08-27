@@ -20,14 +20,14 @@ const aggregation = [
       }
     },{
       $group: {
-        _id: ["$vessel", "$nationality", "$permitNumber", "$homePort", "$safetyLevel"],
-        vessel : {$first: "$vessel"},
-        permitNumber: {$first: "$permitNumber"},
-        nationality: {$first: "$nationality"},
-        homePort: {$first: "$homePort"},
+        _id: ["$vessel", "$permitNumber"],
+        vessel : {$last: "$vessel"},
+        permitNumber: {$last: "$permitNumber"},
+        nationality: {$last: "$nationality"},
+        homePort: {$last: "$homePort"},
         date: {$last: "$date"},
-        safetyLevel: {$first:"$safetyLevel"},
-        highlight: {$first: "$highlight"},
+        safetyLevel: {$last:"$safetyLevel"},
+        highlight: {$last: "$highlight"},
       }
     },
     {
@@ -103,7 +103,7 @@ if (!query){
             'term': {
               'query': query,
               'path': [
-                'vessel.name'
+                'vessel.name', 'vessel.permitNumber'
               ],
               'fuzzy': {
                 'maxEdits': 1.0
@@ -169,7 +169,7 @@ if (!query){
             'term': {
               'query': query,
               'path': [
-                'vessel.name'
+                'vessel.name', 'vessel.permitNumber'
               ],
               'fuzzy': {
                 'maxEdits': 1.0
