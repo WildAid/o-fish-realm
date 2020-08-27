@@ -24,7 +24,7 @@ const aggregation = [
         vessel : {$last: "$vessel"},
         permitNumber: {$last: "$permitNumber"},
         nationality: {$last: "$nationality"},
-        homePort: {$last: "$homePort"},
+        homePort: {$push: "$homePort"},
         date: {$last: "$date"},
         safetyLevel: {$last:"$safetyLevel"},
         highlight: {$last: "$highlight"},

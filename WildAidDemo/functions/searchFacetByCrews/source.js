@@ -57,7 +57,7 @@ exports = function(limit, offset, query, filter){
         _id: ["$name", "$license"],
         name : {$last: "$name"},
         license: {$last: "$license"},
-        vessel: {$last: "$vessel"},
+        vessels: {$push: "$vessel"},
         safetyLevel : {$last: "$safetyLevel"},
         date: { $last: "$date"},
         violations: { $sum: "$violations" }
@@ -128,7 +128,7 @@ exports = function(limit, offset, query, filter){
               'text': {
                 'query': query,
                 'path': [
-                  'captain.name', 'crew.name', 'vessel.name', 'crew.license'
+                  'captain.name', 'crew.name', 'crew.license'
                 ],
                 'fuzzy': {
                   'maxEdits': 1.0
@@ -138,7 +138,7 @@ exports = function(limit, offset, query, filter){
           },
           'highlight': {
             'path': [
-              'captain.name', 'crew.name', 'vessel.name', 'crew.license'
+              'captain.name', 'crew.name', 'crew.license'
             ]
           }
         }
@@ -194,7 +194,7 @@ exports = function(limit, offset, query, filter){
           'text': {
             'query': query,
             'path': [
-              'captain.name', 'crew.name', 'vessel.name', 'crew.license'
+              'captain.name', 'crew.name', 'crew.license'
             ],
             'fuzzy': {
               'maxEdits': 1.0
@@ -202,7 +202,7 @@ exports = function(limit, offset, query, filter){
           },
           'highlight': {
             'path': [
-              'captain.name', 'crew.name', 'vessel.name', 'crew.license'
+              'captain.name', 'crew.name', 'crew.license'
             ]
           }
         }
@@ -249,8 +249,7 @@ exports = function(limit, offset, query, filter){
             .aggregate(searchTerms.concat([
               {
                 $sort: {
-                  "name" : 1,
-                  "vessel": 1
+                  "name" : 1
                 }
               },
               {
