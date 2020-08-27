@@ -103,7 +103,7 @@ if (!query){
             'term': {
               'query': query,
               'path': [
-                'vessel.name', 'vessel.permitNumber'
+                'vessel.name', 'vessel.permitNumber', 'crew.license'
               ],
               'fuzzy': {
                 'maxEdits': 1.0
@@ -169,7 +169,7 @@ if (!query){
             'term': {
               'query': query,
               'path': [
-                'vessel.name', 'vessel.permitNumber'
+                'vessel.name', 'vessel.permitNumber', 'crew.license'
               ],
               'fuzzy': {
                 'maxEdits': 1.0
