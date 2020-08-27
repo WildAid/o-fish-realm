@@ -54,11 +54,11 @@ exports = function(limit, offset, query, filter){
     },
     {
       $group: {
-        _id: ["$name", "$license", "$vessel", "$safetyLevel"],
-        name : {$first: "$name"},
-        license: {$first: "$license"},
-        vessel: {$first: "$vessel"},
-        safetyLevel : {$first: "$safetyLevel"},
+        _id: ["$name", "$license"],
+        name : {$last: "$name"},
+        license: {$last: "$license"},
+        vessel: {$last: "$vessel"},
+        safetyLevel : {$last: "$safetyLevel"},
         date: { $last: "$date"},
         violations: { $sum: "$violations" }
       }
@@ -128,7 +128,7 @@ exports = function(limit, offset, query, filter){
               'text': {
                 'query': query,
                 'path': [
-                  'captain.name', 'crew.name'
+                  'captain.name', 'crew.name', 'vessel.name', 'crew.license'
                 ],
                 'fuzzy': {
                   'maxEdits': 1.0
@@ -138,7 +138,7 @@ exports = function(limit, offset, query, filter){
           },
           'highlight': {
             'path': [
-              'captain.name', 'crew.name'
+              'captain.name', 'crew.name', 'vessel.name', 'crew.license'
             ]
           }
         }
@@ -194,7 +194,7 @@ exports = function(limit, offset, query, filter){
           'text': {
             'query': query,
             'path': [
-              'captain.name', 'crew.name'
+              'captain.name', 'crew.name', 'vessel.name', 'crew.license'
             ],
             'fuzzy': {
               'maxEdits': 1.0
@@ -202,7 +202,7 @@ exports = function(limit, offset, query, filter){
           },
           'highlight': {
             'path': [
-              'captain.name', 'crew.name'
+              'captain.name', 'crew.name', 'vessel.name', 'crew.license'
             ]
           }
         }
