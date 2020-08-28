@@ -62,7 +62,7 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
 1. Enable Users/Custom Data (ensure that cluster name = `RealmSync`, database = `wildaid`, collection = `User` and user ID field = `realmUserId`)
 1. Add a `Search` index (can leave as dynamic) to the `BoardingReports` cluster through the Atlas UI
 1. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
-1. Enable Realm Sync through the Realm UI (`Cluster Service` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). "Review & Deploy".
+1. Enable Realm Sync through the Realm UI (`Cluster Service` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). Before activating sync, you can add extra security by adding this extra rule to the read and write permissions: `{ "%%user.custom_data.agency.name": "%%partition" }`.
 
 
 ## O-FISH Project <A NAME="goals">Goals</A>
