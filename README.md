@@ -49,7 +49,7 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
         "last" : "Admin"
     },
     "agency" : {
-        "name" : "Parque Nacional Galápagos",
+        "name" : "WildAid",
         "admin" : true
     },
     "global" : {
