@@ -36,7 +36,7 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
 1. Add in the App name (from step 1) in the "name" field in `config.json` and add the cluster name to the "clusterName" field in `services/RealmSync/config.json` and `services/mongodb-atlas/config.json` files
 1. If using AWS services, edit the values in `values/awsRegion.json`, `values/destinationEmailAddress.json` and `values/sourceEmailAddress.json`
 1. If using AWS services, Set `accessKeyId` in `WildAidDemo/services/AWS/config.json`
-1. Import the code and values into your Realm app: `realm-cli import --app-id=appname-xxxxx --strategy=replace --include-dependencies`
+1. Import the code and values into your Realm app: `realm-cli import --app-id=appname-xxxxx --strategy=replace`
 1. Use the Realm App-Id (`appname-xxxxx`) in your [web](https://github.com/WildAid/o-fish-web), [iOS](https://github.com/WildAid/o-fish-ios), or [Android](https://github.com/WildAid/o-fish-android) apps.
 1. Create a global administrative user in Realm and note the Realm ID.
 1. Add a document to the wildaid.User collection - the `realmUserID` must match the `Id` field of the Realm user you created:
