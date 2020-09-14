@@ -3,7 +3,7 @@ exports = function(agency, emailAddress){
   var userCollection = context.services.get("mongodb-atlas")
     .db("wildaid").collection("User");
   
-  return userCollection.findOne({email: emailAddress, agency: {name: agency}})
+  return userCollection.findOne({email: emailAddress, "agency.name": agency})
   .then ( userDoc => { 
     if (userDoc) {
       console.log('Matches Agency Member rule');
