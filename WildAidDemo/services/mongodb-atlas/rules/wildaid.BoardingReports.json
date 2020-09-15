@@ -65,6 +65,9 @@
             "agency": {
                 "bsonType": "string"
             },
+            "draft": {
+                "bsonType": "boolean"
+            },
             "captain": {
                 "bsonType": "object",
                 "properties": {
