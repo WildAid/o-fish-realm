@@ -25,6 +25,9 @@
             "agency": {
                 "bsonType": "string"
             },
+            "draft": {
+                "bsonType": "boolean"
+            },
             "reportingOfficer": {
                 "title": "User",
                 "bsonType": "object",
