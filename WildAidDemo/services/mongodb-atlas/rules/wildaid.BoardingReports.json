@@ -54,6 +54,25 @@
             "insert": true,
             "delete": false,
             "additional_fields": {}
+        },
+        {
+            "name": "Partner",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency",
+                            "%%user.data.email"
+                        ],
+                        "name": "isPartner"
+                    }
+                }
+            },
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
         }
     ],
     "schema": {
