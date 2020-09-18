@@ -2,24 +2,53 @@
 	"database": "wildaid",
 	"collection": "Agency",
 	"roles": [
-		{
-			"name": "Global Admin",
-			"apply_when": {
-				"%%true": {
-					"%function": {
-						"arguments": [
-							"%%user.data.email"
-						],
-						"name": "isGlobalAdmin"
-					}
-				}
-			},
-			"write": true,
-			"insert": true,
-			"delete": true,
-			"additional_fields": {}
-		}
-	],
+        {
+            "name": "Global Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%user.data.email"
+                        ],
+                        "name": "isGlobalAdmin"
+                    }
+                }
+            },
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Agency Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyAdmin"
+                    }
+                }
+            },
+            "write": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Anyone",
+            "apply_when": {},
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
 	"schema": {
 		"title": "Agency",
 		"properties": {
