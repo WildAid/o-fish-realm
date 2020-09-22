@@ -5,6 +5,15 @@ var agencyCollection = context.services.get("mongodb-atlas")
 var boardingsCollection = context.services.get("mongodb-atlas")
     .db("wildaid").collection("BoardingReports");
 
+var boardings = boardingsCollection.aggregate([{$project: {
+      'agency': '$agency',
+    }}, {$group: {
+      _id: ["$agency"],
+      name: {$first: "$agency"},
+      count: {$sum: 1}
+    }}
+]).toArray();
+
 if (!query){
   var amount = 0;
   if (filter){
@@ -50,22 +59,25 @@ if (!query){
         }
       ]).toArray();
   }
-  var officers = boardingsCollection.aggregate([
-  {
-    $project: {
-      'agency': '$agency',
-      'officer': '$captain.name'
+  agencies.then((result)=>{
+    for (var agency of result){
+      agency.boardings = boardingsCollection.aggregate([
+          {$match: { "agency": agency.name }},
+          {$project: {
+            'agency': '$agency',
+          }}, {$group: {
+            _id: ["$agency"],
+            name: {$first: "$agency"},
+            count: {$sum: 1}
+          }}
+      ]).next().then(r => (r ? r.count : 0));
+      agency.violations = boardingsCollection.aggregate([
+          { $match: { "agency": agency.name, "inspection.summary.violations.disposition": {$in: ["Warning", "Citation"]}} },
+          { $count: "total" }
+      ]).next().then(r => (r ? r.total : 0));
     }
-  },
-  {
-    $group: {
-      _id: ["$agency"],
-      officers: {$push: "$officer"}
-    }
-  }
- ]).toArray();
-
-  return {agencies, amount, officers }
+  });
+  return {amount, agencies }
 } else {
    var aggregateTerms = {};
 
@@ -146,6 +158,6 @@ if (!query){
     }
   ]).toArray();
 
-  return { agencies, amount, highlighted };
+  return { agencies, amount, boardings, highlighted };
 }
 };
