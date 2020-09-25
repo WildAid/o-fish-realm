@@ -148,14 +148,6 @@ exports = function(query, filter){
         { $unwind: "$violations" },
         { $count: "total" }
     ])).next().then(r=> r ? r.total : 0);
- /* let warnings = boardingsCollection
-    .aggregate(aggregates.concat([{"$project": {
-          "violations": "$inspection.summary.violations",
-        }},
-        { $unwind: "$violations" },
-        { $match: { "violations.disposition": "Warning" }},
-        { $count: "total" }
-    ])).next(); */
     let warnings = boardingsCollection
         .aggregate(aggregates.concat([{$match: {"inspection.summary.violations.disposition": "Warning"}}, {
             $count: "total"
