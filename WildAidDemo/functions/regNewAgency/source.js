@@ -39,7 +39,7 @@ exports = function(firstName, lastName, email, agencyName, agencyURL) {
           })
           .then ( _ => {
             return userCollection.insertOne({
-              agency: agencyName,
+              agency: {name: agencyName, admin: false},
               createdOn: new Date(),
               email: email,
               global: {admin: false},
