@@ -1,19 +1,15 @@
-exports = function(limit, offset, query, filter){
+exports = function(query, filter){
   var boardingsCollection = context.services.get("mongodb-atlas")
   .db("wildaid").collection("BoardingReports");
 
-  let agencyAggregate = { "$addFields": {
-      "numItems": 1
-    }
-  };
+  let aggregates = [];
   if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin){
-      agencyAggregate = {
+      aggregates.push({
         $match: { agency : context.user.custom_data.agency.name }
-      }
+      });
   }
 
   if (!query){
-    var amount = 0;
     if (filter){
       var dateFilter = {};
       if (filter["date-from"]){
@@ -38,49 +34,10 @@ exports = function(limit, offset, query, filter){
         filter["inspection.summary.safetyLevel.level"] = filter["inspection.summary.safetyLevel"];
         delete(filter["inspection.summary.safetyLevel"]);
       }
-      amount = boardingsCollection
-      .aggregate([agencyAggregate,
-        {
+      aggregates.push({
           $match: filter
-        },
-        {
-          $count: "total"
-        }
-      ]).toArray();
-    } else {
-      amount = boardingsCollection
-      .aggregate([agencyAggregate,
-        {
-          $count: "total"
-        }
-      ]).toArray();
+        });
     }
-    var boardings = [];
-    if (filter){
-      boardings = boardingsCollection
-      .aggregate([agencyAggregate,
-        {
-          $match: filter
-        },
-        {
-          $skip: offset
-        },
-        {
-          $limit: limit
-        }
-      ]).toArray();
-    } else {
-      boardings = boardingsCollection
-      .aggregate([agencyAggregate,
-        {
-          $skip: offset
-        },
-        {
-          $limit: limit
-        }
-      ]).toArray();
-    }
-    return {boardings, amount}
   } else {
     var aggregateTerms = {};
 
@@ -174,30 +131,31 @@ exports = function(limit, offset, query, filter){
       }
     }
 
-    var amount = boardingsCollection.aggregate([agencyAggregate,
-      aggregateTerms, {
-        '$count': "total"
-      }
-    ]).toArray();
+    aggregates.push(aggregateTerms);
 
-    var boardings = boardingsCollection.aggregate([agencyAggregate,
-      aggregateTerms, {
-        '$skip': offset
-      }, {
-        '$limit': limit
-      }
-    ]).toArray();
-
-    var highlighted = boardingsCollection.aggregate([agencyAggregate,
-      aggregateTerms, {
-        '$project': {
-          'highlights': {
-            '$meta': 'searchHighlights'
-          }
-        }
-      }
-    ]).toArray();
-
-    return { boardings, amount, highlighted };
   }
+
+  let amount = boardingsCollection
+      .aggregate(aggregates.concat(
+        {
+          $count: "total"
+        }
+      )).next().then(r=> r ? r.total : 0);
+  let violations = boardingsCollection
+    .aggregate(aggregates.concat([{"$project": {
+          "violations": "$inspection.summary.violations",
+        }},
+        { $unwind: "$violations" },
+        { $count: "total" }
+    ])).next().then(r=> r ? r.total : 0);
+    let warnings = boardingsCollection
+        .aggregate(aggregates.concat([{$match: {"inspection.summary.violations.disposition": "Warning"}}, {
+            $count: "total"
+          }])).next().then(r=> r ? r.total : 0);
+    let citations = boardingsCollection
+        .aggregate(aggregates.concat([{$match: {"inspection.summary.violations.disposition": "Citation"}}, {
+            $count: "total"
+          }])).next().then(r=> r ? r.total : 0);
+
+    return { warnings, amount, citations, violations };
 };

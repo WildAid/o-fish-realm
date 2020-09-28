@@ -38,6 +38,17 @@ const aggregation = [
     }
 ];
 
+let agency = "";
+if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin){
+  agency = context.user.custom_data.agency.name;
+  aggregation.unshift(
+    {
+      $match: { agency : agency }
+    }
+  );
+}
+
+
 if (!query){
   var amount = 0;
   var highlighted = [];

@@ -60,10 +60,23 @@ exports = function(limit, offset, query, filter){
         vessels: {$push: "$vessel"},
         safetyLevel : {$last: "$safetyLevel"},
         date: { $last: "$date"},
-        violations: { $sum: "$violations" }
+        violations: { $sum: "$violations" },
+        rank: {$last: "$rank"}
       }
     }
   ];
+
+  let agency = "";
+  if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin){
+    agency = context.user.custom_data.agency.name;
+    aggregationTerm.unshift(
+      {
+        $match: { agency : agency }
+      }
+    );
+  }
+
+
   if (!query){
     var boardingReports = context.services.get("mongodb-atlas")
     .db("wildaid").collection("BoardingReports");
@@ -128,7 +141,7 @@ exports = function(limit, offset, query, filter){
               'text': {
                 'query': query,
                 'path': [
-                  'captain.name', 'crew.name', 'crew.license'
+                  'captain.name', 'crew.name', 'crew.license', 'vessel.permitNumber'
                 ],
                 'fuzzy': {
                   'maxEdits': 1.0
@@ -138,7 +151,7 @@ exports = function(limit, offset, query, filter){
           },
           'highlight': {
             'path': [
-              'captain.name', 'crew.name', 'crew.license'
+              'captain.name', 'crew.name', 'crew.license', 'vessel.permitNumber'
             ]
           }
         }
@@ -194,7 +207,7 @@ exports = function(limit, offset, query, filter){
           'text': {
             'query': query,
             'path': [
-              'captain.name', 'crew.name', 'crew.license'
+              'captain.name', 'crew.name', 'crew.license', 'vessel.permitNumber'
             ],
             'fuzzy': {
               'maxEdits': 1.0
@@ -202,7 +215,7 @@ exports = function(limit, offset, query, filter){
           },
           'highlight': {
             'path': [
-              'captain.name', 'crew.name', 'crew.license'
+              'captain.name', 'crew.name', 'crew.license', 'vessel.permitNumber'
             ]
           }
         }
@@ -224,7 +237,7 @@ exports = function(limit, offset, query, filter){
             }
           }
         },
-        vessel: "$vessel.name",
+        vessel: "$vessel",
         date: 1,
         safetyLevel: "$inspection.summary.safetyLevel.level",
         'highlights': {
