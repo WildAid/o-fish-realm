@@ -1,7 +1,5 @@
 # MongoDB Realm Application for WildAid's O-FISH project
 
-**This app is work-in-progress, as is this README**
-
 # Table of Contents
 1. [Overview](#overview)
 1. [O-FISH Installation](#O-FISHinstall)
@@ -24,51 +22,23 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
 ## <A NAME="standalone">Import this repository as standalone code</a>
 ### How to import and configure your own MongoDB Realm app
 
-1. Create your [Atlas Cluster](https://cloud.mongodb.com) (note that it must be MongoDB 4.4 or later) and [Realm App](https://cloud.mongodb.com). [Import sample data](https://wildaid.github.io/) (use `WildAidMinimalBackup` if you don't need thousands of sample documents)
+1. [Create](https://wildaid.github.io/foundation/2020/06/09/Atlas-Database.html) an Atlas Cluster.
+1. [Configure](https://wildaid.github.io/foundation/2020/06/09/Atlas-Database-config.html) your Atlas Cluster.
+1. [Import sample data](https://wildaid.github.io/foundation/2020/06/09/Data-Import.html) (use `WildAidMinimalBackup` if you don't need thousands of sample documents), and add a Search index to the BoardingReports collection.
+1. [Create the Realm App](https://wildaid.github.io/foundation/2020/06/09/Create-Realm.html).
 1. Take a note of the Realm App-Id `appname-xxxxx` 
-1. Generate an API key pair for your project and note the public and private IDs (Access Manager/Project) from the Atlas UI
-1. Whitelist your IP address for API access (through the Atlas UI)
+1. [Generate an API key pair](https://wildaid.github.io/foundation/2020/06/09/Realm-API-Key.html) for your project and note the public and private IDs. Whitelist your IP address for API access.
 1. Install `realm-cli`: `npm install -g mongodb-realm-cli`
 1. Log in to your Atlas/Realm project: `realm-cli login --api-key=my-api-key --private-api-key=my-private-api-key`
-1. Add your AWS private API key to your app as a Realm Secret: `realm-cli secrets add --app-id=appname-xxxxx --name=AWS-secret-key --value=my-aws-secret-api-key` - Just use a dummy string if you are not planning on using AWS services
-1. Download the Realm app code: `git clone https://github.com/WildAid/o-fish-realm.git`
-1. `cd o-fish-realm/WildAidDemo`
-1. Add in the App name (from step 1) in the "name" field in `config.json` and add the cluster name to the "clusterName" field in `services/RealmSync/config.json` and `services/mongodb-atlas/config.json` files
-1. If using AWS services, edit the values in `values/awsRegion.json`, `values/destinationEmailAddress.json` and `values/sourceEmailAddress.json`
-1. If using AWS services, Set `accessKeyId` in `WildAidDemo/services/AWS/config.json`
-1. Import the code and values into your Realm app: `realm-cli import --app-id=appname-xxxxx --strategy=replace`
+1. Add your AWS private API key to your app as a Realm Secret: `realm-cli secrets add --app-id=appname-xxxxx --name=AWS-secret-key --value=my-aws-secret-api-key` - If you are NOT connecting your instance with AWS, you STILL need to run this command but --value can be set to any string.
+1. [Import the Realm Code](https://wildaid.github.io/foundation/2020/06/09/Import-Realm-Code.html)
+1. [Create a global administrative user in Realm](https://wildaid.github.io/foundation/2020/06/09/Connect-Realm-With-Data.html) and add the information to the User collection.
 1. Use the Realm App-Id (`appname-xxxxx`) in your [web](https://github.com/WildAid/o-fish-web), [iOS](https://github.com/WildAid/o-fish-ios), or [Android](https://github.com/WildAid/o-fish-android) apps.
-1. Create a global administrative user in Realm and note the Realm ID.
-1. Add a document to the wildaid.User collection - the `realmUserID` must match the `Id` field of the Realm user you created:
-```js
-{
-    "email" : "global-admin@my-domain.com",
-    "realmUserID" : "xxxxxxxxxxxxxxxxxxxxxx",
-    "name" : {
-        "first" : "Global",
-        "last" : "Admin"
-    },
-    "agency" : {
-        "name" : "WildAid",
-        "admin" : true
-    },
-    "global" : {
-        "admin" : true
-    },
-    createdOn: ISODate()
-}
-```
-17. Enable the `recordChangeHistory` Trigger
+1. [Enable Realm Sync through the Realm UI](https://wildaid.github.io/web/2020/06/09/Prepare-Web-App.html)<BR>
+Before activating sync, you can add extra security by adding this extra rule to the read and write permissions: `{ "%%user.custom_data.agency.name": "%%partition" }`.
 1. Enable Users/Custom Data (ensure that cluster name = `RealmSync`, database = `wildaid`, collection = `User` and user ID field = `realmUserId`)
-1. Add a `Search` index (can leave as dynamic) to the `BoardingReports` cluster through the Atlas UI
 1. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
-1. Enable Realm Sync through the Realm UI (`Cluster Service` = `RealmSync`, `database` = `wildaid`, `partition-key` = `agency`). Before activating sync, you can add extra security by adding this extra rule to the read and write permissions: `{ "%%user.custom_data.agency.name": "%%partition" }`.
-1. If you want to allow anonymous users to create a new account and agency (only intended for shared development environments), then enable Anonymous Authentication so that the `regNewAgency` function can be called from the web app.
-
-
-## O-FISH Project <A NAME="goals">Goals</A>
-1. To modernize a paper-based system where officers board vessels and note information about the vessel, captain, crew and what's on board including gear and wildlife caught, including any violation information. 
-1. To aggregate digital records for visualization, so that information may be extracted. 
+1. If you want to allow anonymous users to create a new account and agency (only intended for shared development environments/sandboxes), then enable Anonymous Authentication so that the `regNewAgency` function can be called from the web app.
 
 
 ## O-FISH <A NAME="components">Components</A>
