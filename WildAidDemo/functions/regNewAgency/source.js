@@ -12,6 +12,14 @@
 */
 exports = function(firstName, lastName, email, agencyName, agencyURL) {
   console.log(`Attempting to create Agency & User documents for user ${email} and agency ${agencyName}`);
+  
+  const developerMode = context.values.get("developerMode");
+  if (!developerMode) {
+    const errorText = `developerMode not enabled in backend Realm app`;
+      console.log(errorText);
+      return {result: "error", reason: errorText};
+  }
+  
   var database = context.services.get("mongodb-atlas").db("wildaid");
   var userCollection = database.collection("User");
   var agencyCollection = database.collection("Agency");
@@ -39,7 +47,7 @@ exports = function(firstName, lastName, email, agencyName, agencyURL) {
           })
           .then ( _ => {
             return userCollection.insertOne({
-              agency: {name: agencyName, admin: false},
+              agency: {name: agencyName, admin: true},
               createdOn: new Date(),
               email: email,
               global: {admin: false},
