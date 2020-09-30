@@ -1,6 +1,6 @@
 {
-    "database": "wildaid",
     "collection": "BoardingReports",
+    "database": "wildaid",
     "roles": [
         {
             "name": "Global Admin",
@@ -17,6 +17,7 @@
             "write": true,
             "insert": true,
             "delete": true,
+            "search": true,
             "additional_fields": {}
         },
         {
@@ -35,6 +36,7 @@
             "write": true,
             "insert": true,
             "delete": true,
+            "search": true,
             "additional_fields": {}
         },
         {
@@ -53,6 +55,7 @@
             "write": true,
             "insert": true,
             "delete": false,
+            "search": true,
             "additional_fields": {}
         },
         {
@@ -62,6 +65,7 @@
                     "%function": {
                         "arguments": [
                             "%%root.agency",
+                            "%%root.date",
                             "%%user.data.email"
                         ],
                         "name": "isPartner"
@@ -83,9 +87,6 @@
             },
             "agency": {
                 "bsonType": "string"
-            },
-            "draft": {
-                "bsonType": "boolean"
             },
             "captain": {
                 "bsonType": "object",
@@ -162,6 +163,9 @@
             },
             "date": {
                 "bsonType": "date"
+            },
+            "draft": {
+                "bsonType": "boolean"
             },
             "inspection": {
                 "bsonType": "object",
@@ -357,8 +361,8 @@
                                     }
                                 },
                                 "required": [
-                                    "amberReason",
-                                    "level"
+                                    "level",
+                                    "amberReason"
                                 ],
                                 "title": "SafetyLevel"
                             },
@@ -447,8 +451,8 @@
                                                 }
                                             },
                                             "required": [
-                                                "license",
-                                                "name"
+                                                "name",
+                                                "license"
                                             ],
                                             "title": "CrewMember"
                                         },
@@ -489,9 +493,9 @@
             "location": {
                 "bsonType": "array",
                 "items": {
-                  "bsonType": "double"
+                    "bsonType": "double"
                 }
-              },
+            },
             "notes": {
                 "bsonType": "array",
                 "items": {
@@ -530,8 +534,8 @@
                             }
                         },
                         "required": [
-                            "last",
-                            "first"
+                            "first",
+                            "last"
                         ],
                         "title": "Name"
                     }
@@ -661,10 +665,10 @@
                     }
                 },
                 "required": [
-                    "permitNumber",
                     "name",
                     "homePort",
-                    "nationality"
+                    "nationality",
+                    "permitNumber"
                 ],
                 "title": "Boat"
             }
