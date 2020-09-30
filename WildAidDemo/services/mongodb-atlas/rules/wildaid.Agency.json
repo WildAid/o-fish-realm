@@ -1,7 +1,7 @@
 {
-	"database": "wildaid",
-	"collection": "Agency",
-	"roles": [
+    "collection": "Agency",
+    "database": "wildaid",
+    "roles": [
         {
             "name": "Global Admin",
             "apply_when": {
@@ -49,38 +49,50 @@
             "additional_fields": {}
         }
     ],
-	"schema": {
-		"title": "Agency",
-		"properties": {
-			"_id": {
-				"bsonType": "objectId"
-			},
-			"active": {
-				"bsonType": "bool"
-			},
-			"name": {
-				"bsonType": "string"
-			},
-			"description": {
-				"bsonType": "string"
-			},
-			"email": {
-				"bsonType": "string"
-			},
-			"site": {
-				"bsonType": "string"
-			},
-			"partnerAgencies": {
-        			"bsonType": "array",
-        			"items": {
-			        	"bsonType": "string"
-        			}
-			}
-		},
-		"required": [
-			"_id",
-			"active",
-			"name"
-		]
-	}
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "active": {
+                "bsonType": "bool"
+            },
+            "description": {
+                "bsonType": "string"
+            },
+            "email": {
+                "bsonType": "string"
+            },
+            "name": {
+                "bsonType": "string"
+            },
+            "partnerAgencies": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "fromDate": {
+                            "bsonType": "date"
+                        },
+                        "name": {
+                            "bsonType": "string"
+                        },
+                        "tDate": {
+                            "bsonType": "date"
+                        }
+                    },
+                    "title": "partnerAgencies"
+                }
+            },
+            "site": {
+                "bsonType": "string"
+            }
+        },
+        "required": [
+            "_id",
+            "active",
+            "name"
+        ],
+        "title": "Agency"
+    }
 }
