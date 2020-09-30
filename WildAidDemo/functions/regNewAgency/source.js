@@ -41,7 +41,7 @@ exports = function(firstName, lastName, email, agencyName, agencyURL) {
           return agencyCollection.insertOne({
             active: true,
             name: agencyName,
-            description: `Development agency for ${email}`,
+            description: `Sandbox development agency`,
             email: email,
             site: agencyURL
           })
