@@ -15,8 +15,9 @@ Fixes #
 Optional items:
 <!--- Please check off any appropriate boxes by replacing the whitespace with an `x` in the box -->
 - [ ] My change adds new text and requires a change to translations.
+- [ ] My change requires a change to the documentation.
+- [ ] I have submitted a PR to the [documentation repo](https://github.com/WildAid/wildaid.github.io).
 - [ ] I was not able to test... (explain below, e.g. you did not have permissions to test a specific feature)
-- [ ] This change depends O-FISH Realm repository changes (explain below)
 - [ ] This change depends O-FISH Web repository changes (explain below)
 
 * **Optional: Add any explanations here** 
