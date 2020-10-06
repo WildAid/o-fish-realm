@@ -47,8 +47,8 @@ If you want to allow anonymous users to create a new account and agency (only in
 1. Enable Anonymous Authentication
 1. Set the `developerMode` Realm value to `true` so that the `regNewAgency` function can be called from the web app.
 1. If you want new agencies to be bootstrapped with menu data, reports, and photos then:
-1.1 Set up an agency (as normal) with the desired menu data, a few sample reports (optional), and a few photos (optional) - note the name of this "donor agency"
-1.1 Set the `donorAgency` value to the name of the donor agency – new agencies will now be bootstrapped with the menu data, the photos, and (10 of) the boarding reports from the donor agency.
+   1. Set up an agency (as normal) with the desired menu data, a few sample reports (optional), and a few photos (optional) - note the name of this "donor agency"
+   1. Set the `donorAgency` value to the name of the donor agency – new agencies will now be bootstrapped with the menu data, the photos, and (10 of) the boarding reports from the donor agency.
 
 ## O-FISH <A NAME="components">Components</A>
 WildAid's O-FISH project has several components:
