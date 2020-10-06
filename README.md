@@ -40,8 +40,15 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
 Before activating sync, you can add extra security by adding this extra rule to the read and write permissions: `{ "%%user.custom_data.agency.name": "%%partition" }`.
 1. Enable Users/Custom Data (ensure that cluster name = `RealmSync`, database = `wildaid`, collection = `User` and user ID field = `realmUserId`)
 1. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
-1. If you want to allow anonymous users to create a new account and agency (only intended for shared development environments/sandboxes), then enable Anonymous Authentication and set the `developerMode` Realm value to `ture` so that the `regNewAgency` function can be called from the web app.
 
+### Developer Sandbox Mode
+
+If you want to allow anonymous users to create a new account and agency (only intended for shared development environments/sandboxes), then:
+1. Enable Anonymous Authentication
+1. Set the `developerMode` Realm value to `true` so that the `regNewAgency` function can be called from the web app.
+1. If you want new agencies to be bootstrapped with menu data, reports, and photos then:
+1.1 Set up an agency (as normal) with the desired menu data, a few sample reports (optional), and a few photos (optional) - note the name of this "donor agency"
+1.1 Set the `donorAgency` value to the name of the donor agency – new agencies will now be bootstrapped with the menu data, the photos, and (10 of) the boarding reports from the donor agency.
 
 ## O-FISH <A NAME="components">Components</A>
 WildAid's O-FISH project has several components:
