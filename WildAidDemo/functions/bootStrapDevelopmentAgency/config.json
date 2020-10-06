@@ -1,5 +1,6 @@
 {
     "can_evaluate": {},
     "name": "bootStrapDevelopmentAgency",
-    "private": true
+    "private": true,
+    "run_as_system": true
 }
