@@ -63,10 +63,28 @@
             "email": {
                 "bsonType": "string"
             },
+            "inBoundPartnerAgencies": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "agencyWideAccess": {
+                            "bsonType": "boolean"
+                        },
+                        "name": {
+                            "bsonType": "string"
+                        },
+                        "triaged": {
+                            "bsonType": "boolean"
+                        }
+                    },
+                    "title": "inBoundPartnerAgencies"
+                }
+            },
             "name": {
                 "bsonType": "string"
             },
-            "partnerAgencies": {
+            "outBoundPartnerAgencies": {
                 "bsonType": "array",
                 "items": {
                     "bsonType": "object",
@@ -81,7 +99,7 @@
                             "bsonType": "date"
                         }
                     },
-                    "title": "partnerAgencies"
+                    "title": "outBoundPartnerAgencies"
                 }
             },
             "site": {
