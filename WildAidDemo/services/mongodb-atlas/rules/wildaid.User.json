@@ -1,6 +1,6 @@
 {
-    "database": "wildaid",
     "collection": "User",
+    "database": "wildaid",
     "roles": [
         {
             "name": "Global Admin",
@@ -20,66 +20,56 @@
             "write": true,
             "insert": true,
             "delete": true,
+            "search": true,
             "additional_fields": {}
         },
-         {
-      "name": "Agency Admin",
-      "apply_when": {
-        "%%true": {
-          "%function": {
-            "arguments": [
-              "%%root.agency",
-              "%%user.data.email"
-            ],
-            "name": "isAgencyAdmin"
-          }
+        {
+            "name": "Agency Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency.name",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyAdmin"
+                    }
+                }
+            },
+            "fields": {
+                "global": {}
+            },
+            "read": true,
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {
+                "write": true
+            }
+        },
+        {
+            "name": "User",
+            "apply_when": {
+                "email": "%%user.data.email"
+            },
+            "fields": {
+                "global": {}
+            },
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {
+                "write": true
+            }
         }
-      },
-      "insert": true,
-      "delete": true,
-      "read": true,
-      "fields": {
-        "global": {}
-      },
-      "additional_fields": {
-        "write": true
-      }
-    },
-    {
-      "name": "User",
-      "apply_when": {
-        "email": "%%user.data.email"
-      },
-      "insert": false,
-      "delete": false,
-      "read": true,
-      "fields": {
-        "global": {},
-        "name": {
-          "write": true
-        }
-      },
-      "additional_fields": {}
-    }
     ],
     "schema": {
-        "title": "User",
         "properties": {
             "_id": {
                 "bsonType": "objectId"
             },
             "agency": {
-                "bsonType": "object",
-                "properties": {
-                    "admin": {
-                        "bsonType": "bool"
-                    },
-                    "name": {
-                        "bsonType": "string"
-                    }
-                }
-            },
-            "group": {
                 "bsonType": "object",
                 "properties": {
                     "admin": {
@@ -104,6 +94,23 @@
                     }
                 }
             },
+            "group": {
+                "bsonType": "object",
+                "properties": {
+                    "admin": {
+                        "bsonType": "bool"
+                    },
+                    "name": {
+                        "bsonType": "string"
+                    }
+                }
+            },
+            "inBoundPartnerAgencies": {
+                "bsonType": "string",
+                "items": {
+                    "bsonType": "object"
+                }
+            },
             "name": {
                 "bsonType": "object",
                 "properties": {
@@ -121,6 +128,7 @@
             "realmUserID": {
                 "bsonType": "string"
             }
-        }
+        },
+        "title": "User"
     }
 }
