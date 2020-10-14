@@ -16,11 +16,11 @@ var boardings = boardingsCollection.aggregate([{$project: {
 
 if (!query){
   var amount = 0;
-  if (filter){
+  if (filter.agency){
     amount = agencyCollection
      .aggregate([
         {
-          $match: filter
+          $match: filter.agency
         },
         {
           $count: "total"
@@ -35,11 +35,11 @@ if (!query){
       ]).toArray();
   }
   var agencies = [];
-  if (filter){
+  if (filter.agency){
    agencies = agencyCollection
      .aggregate([
         {
-          $match: filter
+          $match: filter.agency
         },
         {
           $skip: offset
@@ -62,7 +62,7 @@ if (!query){
   agencies.then((result)=>{
     for (var agency of result){
       agency.boardings = boardingsCollection.aggregate([
-          {$match: { "agency": agency.name }},
+          {$match: { $and: [{ "agency": agency.name }, {"date": filter.date} ] }},
           {$project: {
             'agency': '$agency',
           }}, {$group: {
@@ -72,7 +72,7 @@ if (!query){
           }}
       ]).next().then(r => (r ? r.count : 0));
       agency.violations = boardingsCollection.aggregate([
-          { $match: { "agency": agency.name, "inspection.summary.violations.disposition": {$in: ["Warning", "Citation"]}} },
+          { $match: { $and: [{ "agency": agency.name, "inspection.summary.violations.disposition": {$in: ["Warning", "Citation"]}}, {"date": filter.date} ] } },
           { $count: "total" }
       ]).next().then(r => (r ? r.total : 0));
     }
