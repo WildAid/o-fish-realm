@@ -1,4 +1,5 @@
 exports = function(changeEvent) {
+  if (!changeEvent.fullDocument.outBoundPartnerAgencies) { return }
   const agencyCollection = context.services.get("mongodb-atlas").db("wildaid").collection("Agency");
   const agency = changeEvent.fullDocument.name
 
