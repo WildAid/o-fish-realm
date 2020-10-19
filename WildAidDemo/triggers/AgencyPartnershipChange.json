@@ -1,0 +1,20 @@
+{
+    "name": "AgencyPartnershipChange",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "UPDATE",
+            "INSERT",
+            "REPLACE"
+        ],
+        "database": "wildaid",
+        "collection": "Agency",
+        "service_name": "mongodb-atlas",
+        "match": {},
+        "project": {},
+        "full_document": true,
+        "unordered": false
+    },
+    "function_name": "updateInboundPartners",
+    "disabled": false
+}

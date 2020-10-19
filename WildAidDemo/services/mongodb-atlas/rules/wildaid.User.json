@@ -15,7 +15,8 @@
                 }
             },
             "fields": {
-                "global": {}
+                "global": {},
+                "inBoundPartnerAgencies": {}
             },
             "write": true,
             "insert": true,
@@ -37,7 +38,10 @@
                 }
             },
             "fields": {
-                "global": {}
+                "global": {},
+                "inBoundPartnerAgencies": {
+                    "write": true
+                }
             },
             "read": true,
             "insert": true,
@@ -53,7 +57,8 @@
                 "email": "%%user.data.email"
             },
             "fields": {
-                "global": {}
+                "global": {},
+                "inBoundPartnerAgencies": {}
             },
             "read": true,
             "insert": false,
@@ -106,9 +111,9 @@
                 }
             },
             "inBoundPartnerAgencies": {
-                "bsonType": "string",
+                "bsonType": "array",
                 "items": {
-                    "bsonType": "object"
+                    "bsonType": "string"
                 }
             },
             "name": {
