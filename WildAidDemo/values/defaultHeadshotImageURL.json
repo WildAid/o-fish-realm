@@ -1,0 +1,5 @@
+{
+    "name": "defaultHeadshotImageURL",
+    "value": "https://wildaid-o-fish-resources.s3.amazonaws.com/o-fish-logo.jpg",
+    "from_secret": false
+}
