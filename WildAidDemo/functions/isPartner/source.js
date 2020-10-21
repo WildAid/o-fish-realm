@@ -16,9 +16,21 @@ exports = function(agency, documentDate, emailAddress){
             if (agencyDoc && agencyDoc.outboundPartnerAgencies) {
               const outboundPartnership = agencyDoc.outboundPartnerAgencies.find(partner => partner.name === userDoc.agency.name)
               if (outboundPartnership) {
-                if (outboundPartnership.fromDate && outboundPartnership.fromDate > documentDate) { return false }
-                if (outboundPartnership.toDate && outboundPartnership.toDate < documentDate) { return false }
-                console.log("Report is in a valid partnership interval")
+                let isMatchingDate = false
+                for (let date of outboundPartnership.dates) {
+                  if (!isMatchingDate) {
+                    if ((!date.fromDate || date.fromDate <= documentDate) && 
+                        (!date.toDate || date.toDate >= documentDate)) {
+                      isMatchingDate = true
+                    }
+                  }
+                }
+                if (isMatchingDate) {
+                  console.log("Report is in a valid partnership interval")
+                } else {
+                  console.log("No matching dates for ${documentDate}")
+                  return false
+                }
                 const inboundPartnership = userAgencyDoc.inBoundPartnerAgencies.find(partner => partner.name === agency)
                 if (inboundPartnership) {
                   if (inboundPartnership.agencyWideAccess) { return true }
