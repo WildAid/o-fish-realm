@@ -1,6 +1,7 @@
-exports = function(limit, offset, query, filter){
+exports = function(limit, offset, query, filter, agenciesToShareData){
   var boardingsCollection = context.services.get("mongodb-atlas")
   .db("wildaid").collection("BoardingReports");
+  
   const aggregationTerm = [
     {
       $project: {
@@ -65,18 +66,18 @@ exports = function(limit, offset, query, filter){
       }
     }
   ];
-
+  
   let agency = "";
   if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin){
     agency = context.user.custom_data.agency.name;
     aggregationTerm.unshift(
       {
-        $match: { agency : agency }
+        $match: { agency: { $in: agenciesToShareData } }
       }
     );
   }
 
-
+  
   if (!query){
     var boardingReports = context.services.get("mongodb-atlas")
     .db("wildaid").collection("BoardingReports");
