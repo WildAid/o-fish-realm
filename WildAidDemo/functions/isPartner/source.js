@@ -1,5 +1,5 @@
 exports = function(agency, documentDate, emailAddress){
-  console.log(`Checking email address: ${emailAddress} for documentAgency: ${agencyDoc.name}`);
+  console.log(`Partner check - Checking email address: ${emailAddress} for documentAgency: ${agency}`);
   var database = context.services.get("mongodb-atlas").db("wildaid");
   var userCollection = database.collection("User");
   var agencyCollection = database.collection("Agency");
@@ -13,8 +13,8 @@ exports = function(agency, documentDate, emailAddress){
         if (userAgencyDoc) {
           return agencyCollection.findOne({name: agency})
           .then (agencyDoc => {
-            if (agencyDoc) {
-              const outboundPartnership = agencyDoc.outBoundPartnerAgencies.find(partner => partner.name === userDoc.agency.name)
+            if (agencyDoc && agencyDoc.outboundPartnerAgencies) {
+              const outboundPartnership = agencyDoc.outboundPartnerAgencies.find(partner => partner.name === userDoc.agency.name)
               if (outboundPartnership) {
                 if (outboundPartnership.fromDate && outboundPartnership.fromDate > documentDate) { return false }
                 if (outboundPartnership.toDate && outboundPartnership.toDate < documentDate) { return false }

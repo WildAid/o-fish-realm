@@ -63,7 +63,7 @@
             "email": {
                 "bsonType": "string"
             },
-            "inBoundPartnerAgencies": {
+            "inboundPartnerAgencies": {
                 "bsonType": "array",
                 "items": {
                     "bsonType": "object",
@@ -78,13 +78,13 @@
                             "bsonType": "boolean"
                         }
                     },
-                    "title": "inBoundPartnerAgencies"
+                    "title": "inboundPartnerAgencies"
                 }
             },
             "name": {
                 "bsonType": "string"
             },
-            "outBoundPartnerAgencies": {
+            "outboundPartnerAgencies": {
                 "bsonType": "array",
                 "items": {
                     "bsonType": "object",
@@ -99,7 +99,7 @@
                             "bsonType": "date"
                         }
                     },
-                    "title": "outBoundPartnerAgencies"
+                    "title": "outboundPartnerAgencies"
                 }
             },
             "site": {
