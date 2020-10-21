@@ -13,23 +13,21 @@ exports = function(authEvent) {
             const photoCollection = context.services.get("mongodb-atlas").db("wildaid").collection("Photo");
             const photoDoc = {
               date: new Date(),
-              agency: userDoc.agency? userDoc.agency : "",
-              pictureURL: photoURL
+              agency: userDoc.agency? userDoc.agency.name : "",
+              pictureURL: photoURL,
+              referencingReportID: ""
             }
             photoCollection.insertOne(photoDoc)
             .then (result => {
-              if (result.insertedCount === 1) {
-                userCollection.updateOne({_id: userDoc._id}, {$set: {profilePic: JSON.stringify(result.insertedId)}})
-                .then ((userResult) => {
-                  if (userResult.modifiedCount === 1) {
-                    console.log("Set profilePic to ${JSON.stringify(result.insertedId)}")
-                  } else {
-                    console.log("Couldn't set the profile pic in the User document")
-                  }
-                })
-              } else {
-                console.log(`No Photo doc inserted`)
-              }
+              console.log(`Inserted Photo document`)
+              userCollection.updateOne({_id: userDoc._id}, {$set: {profilePic: result.insertedId.toString()}})
+              .then ((userResult) => {
+                if (userResult.modifiedCount === 1) {
+                  console.log(`Set profilePic to ${result.insertedId.toString()}`)
+                } else {
+                  console.log("Couldn't set the profile pic in the User document")
+                }
+              })
             }, error => {
               console.log(`Failed to insert new Photo doc: ${error}`)
             })
