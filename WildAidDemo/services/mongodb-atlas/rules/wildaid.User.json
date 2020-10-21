@@ -127,7 +127,7 @@
                     }
                 }
             },
-            "profilePicId": {
+            "profilePic": {
                 "bsonType": "string"
             },
             "realmUserID": {
