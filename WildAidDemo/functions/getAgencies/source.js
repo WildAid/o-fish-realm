@@ -1,165 +1,215 @@
-exports = function(limit, offset, query, filter){
-  var agencyCollection = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("Agency");
-  
-  var boardingsCollection = context.services.get("mongodb-atlas")
-      .db("wildaid").collection("BoardingReports");
-  
-  var boardings = boardingsCollection.aggregate([{$project: {
-        'agency': '$agency',
-      }}, {$group: {
-        _id: ["$agency"],
-        name: {$first: "$agency"},
-        count: {$sum: 1}
-      }}
-  ]).toArray();
-     
-  if (!query){
+exports = function (limit, offset, query, filter) {
+  var agencyCollection = context.services
+    .get("mongodb-atlas")
+    .db("wildaid")
+    .collection("Agency");
+
+  var boardingsCollection = context.services
+    .get("mongodb-atlas")
+    .db("wildaid")
+    .collection("BoardingReports");
+
+  var boardings = boardingsCollection
+    .aggregate([
+      {
+        $project: {
+          agency: "$agency",
+        },
+      },
+      {
+        $group: {
+          _id: ["$agency"],
+          name: { $first: "$agency" },
+          count: { $sum: 1 },
+        },
+      },
+    ])
+    .toArray();
+
+  if (!query) {
     var amount = 0;
-    if (filter){
+    if (filter && filter.agency) {
       amount = agencyCollection
-       .aggregate([
-          { 
-            $match: filter 
+        .aggregate([
+          {
+            $match: filter.agency,
           },
           {
-            $count: "total"
-          }
-        ]).toArray();
+            $count: "total",
+          },
+        ])
+        .toArray();
+
     } else {
       amount = agencyCollection
-       .aggregate([
+        .aggregate([
           {
-            $count: "total"
-          }
-        ]).toArray();
-    } 
-    
+            $count: "total",
+          },
+        ])
+        .toArray();
+    }
+
     var agencies = [];
-    if (filter){
-     agencies = agencyCollection
-       .aggregate([
-          { 
-            $match: filter 
+    
+    if (filter && filter.agency) {
+      agencies = agencyCollection
+        .aggregate([
+          {
+            $match: filter.agency,
           },
           {
-            $skip: offset
+            $skip: offset,
           },
           {
-            $limit: limit
+            $limit: limit,
+          },
+        ])
+        .toArray();
+        
+      agencies.then((result) => {
+        let matchExpression = { agency: agency.name };
+        for (var agency of result) {
+          if (filter && filter.date) {
+            matchExpression = {
+              $and: [{ agency: agency.name }, { date: filter.date }],
+            };
           }
-        ]).toArray();
+          agency.boardings = boardingsCollection
+            .aggregate([
+              { $match: matchExpression },
+              {
+                $project: {
+                  agency: "$agency",
+                },
+              },
+              {
+                $group: {
+                  _id: ["$agency"],
+                  name: { $first: "$agency" },
+                  count: { $sum: 1 },
+                },
+              },
+            ])
+            .next()
+            .then((r) => (r ? r.count : 0));
+            
+          agency.violations = boardingsCollection
+            .aggregate([
+              {
+                $match: {
+                  $and: [
+                    {
+                      agency: agency.name,
+                      "inspection.summary.violations.disposition": {
+                        $in: ["Warning", "Citation"],
+                      },
+                    },
+                    { date: filter.date },
+                  ],
+                },
+              },
+              { $count: "total" },
+            ])
+            .next()
+            .then((r) => (r ? r.total : 0));
+        }
+      });
     } else {
       agencies = agencyCollection
-       .aggregate([
+        .aggregate([
           {
-            $skip: offset
+            $skip: offset,
           },
           {
-            $limit: limit
-          }
-        ]).toArray(); 
+            $limit: limit,
+          },
+        ])
+        .toArray();
     }
-    agencies.then((result)=>{
-      for (var agency of result){
-        agency.boardings = boardingsCollection.aggregate([
-            {$match: { "agency": agency.name }},
-            {$project: {
-              'agency': '$agency',
-            }}, {$group: {
-              _id: ["$agency"],
-              name: {$first: "$agency"},
-              count: {$sum: 1}
-            }}
-        ]).next().then(r => (r ? r.count : 0));
-        agency.violations = boardingsCollection.aggregate([
-            { $match: { "agency": agency.name, "inspection.summary.violations.disposition": {$in: ["Warning", "Citation"]}} },
-            { $count: "total" }
-        ]).next().then(r => (r ? r.total : 0));
-      }
-    });
-    return {amount, agencies }
+    return { amount, agencies };
   } else {
-     var aggregateTerms = {}; 
-      
-     if (filter){
-       aggregateTerms = {
-        '$search': {
-          'compound': {
-            "must": [],
-            "filter": {
-              'text': {
-                'query': query, 
-                'path': [
-                  'name', 'email', 'description' 
-                ], 
-                'fuzzy': {
-                  'maxEdits': 1.0
-                }
-              }
-            }
-          },
-          'highlight' : {
-            'path': [
-              'name', 'email', 'description' 
-            ]
-          }
-        }
-      }
-      Object.keys(filter).map((key) => {
-          aggregateTerms.$search.compound.must.push({
-                  "search": {
-                    "query": filter[key],
-                    "path": key
-                  }
-                })
-      })
-     } else {
-        aggregateTerms = {
-            '$search': {
-              'text': {
-                'query': query, 
-                'path': [
-                  'name', 'email', 'description'  
-                ], 
-                'fuzzy': {
-                  'maxEdits': 1.0
-                }
+    var aggregateTerms = {};
+
+    if (filter) {
+      aggregateTerms = {
+        $search: {
+          compound: {
+            must: [],
+            filter: {
+              text: {
+                query: query,
+                path: ["name", "email", "description"],
+                fuzzy: {
+                  maxEdits: 1.0,
+                },
               },
-              'highlight': {
-                'path': [
-                  'name', 'email', 'description'
-                ]
-              }
-            }
-          }
-     }
-     
-    var amount = agencyCollection.aggregate([
-      aggregateTerms, {
-        '$count': "total"
-      }
-    ]).toArray();
-     
-    var agencies = agencyCollection.aggregate([
-      aggregateTerms, {
-        '$skip': offset
-      }, {
-        '$limit': limit
-      }
-    ]).toArray();
-     
-    var highlighted = agencyCollection.aggregate([
-      aggregateTerms, {
-        '$project': {
-          'highlights': {
-            '$meta': 'searchHighlights'
-          }
-        }
-      }
-    ]).toArray();
-     
+            },
+          },
+          highlight: {
+            path: ["name", "email", "description"],
+          },
+        },
+      };
+      Object.keys(filter).map((key) => {
+        aggregateTerms.$search.compound.must.push({
+          search: {
+            query: filter[key],
+            path: key,
+          },
+        });
+      });
+    } else {
+      aggregateTerms = {
+        $search: {
+          text: {
+            query: query,
+            path: ["name", "email", "description"],
+            fuzzy: {
+              maxEdits: 1.0,
+            },
+          },
+          highlight: {
+            path: ["name", "email", "description"],
+          },
+        },
+      };
+    }
+
+    var amount = agencyCollection
+      .aggregate([
+        aggregateTerms,
+        {
+          $count: "total",
+        },
+      ])
+      .toArray();
+
+    var agencies = agencyCollection
+      .aggregate([
+        aggregateTerms,
+        {
+          $skip: offset,
+        },
+        {
+          $limit: limit,
+        },
+      ])
+      .toArray();
+
+    var highlighted = agencyCollection
+      .aggregate([
+        aggregateTerms,
+        {
+          $project: {
+            highlights: {
+              $meta: "searchHighlights",
+            },
+          },
+        },
+      ])
+      .toArray();
+
     return { agencies, amount, boardings, highlighted };
   }
 };
-  
