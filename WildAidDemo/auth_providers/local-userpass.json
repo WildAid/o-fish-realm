@@ -4,8 +4,10 @@
     "config": {
         "autoConfirm": true,
         "resetFunctionName": "resetFunc",
+        "resetPasswordSubject": "Reset Password Link",
+        "resetPasswordUrl": "http://localhost:3000/#/reset_password",
         "runConfirmationFunction": false,
-        "runResetFunction": true
+        "runResetFunction": false
     },
     "disabled": false
 }
