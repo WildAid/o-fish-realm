@@ -54,7 +54,7 @@ if (!query){
   {
     $project: {
       'agency': '$agency',
-      'officer': '$captain.name'
+      'officer': {$concat: ['$reportingOfficer.name.first', ' ', '$reportingOfficer.name.last']}
     }
   },
   {
