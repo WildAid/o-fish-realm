@@ -67,6 +67,29 @@
             "additional_fields": {
                 "write": true
             }
+        },
+        {
+            "name": "AgencyMember",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency.name",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyMember"
+                    }
+                }
+            },
+            "fields": {
+                "global": {},
+                "inBoundPartnerAgencies": {}
+            },
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
         }
     ],
     "schema": {
