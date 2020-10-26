@@ -10,7 +10,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
     }
   };
   
-  if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin){
+  if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin && agenciesToShareData){
     agencyAggregate = {
       $match: { agency: { $in: agenciesToShareData } }
     };
