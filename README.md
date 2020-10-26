@@ -39,6 +39,7 @@ See the [O-FISH installation guide](https://wildaid.github.io/), which includes 
 1. [Enable Realm Sync through the Realm UI](https://wildaid.github.io/web/2020/06/09/Prepare-Web-App.html)<BR>
 Before activating sync, you can add extra security by adding this extra rule to the read and write permissions: `{ "%%user.custom_data.agency.name": "%%partition" }`.
 1. Enable Users/Custom Data (ensure that cluster name = `RealmSync`, database = `wildaid`, collection = `User` and user ID field = `realmUserId`)
+1. If you're running the web app somewhere than `localhost`, or you want password reset emails to work on other devices, go to the Autentication section of the UI, and set update `Password Reset URL` for the username/password service.
 1. Optionally enable additional Triggers through the Realm UI (if you've set up your AWS credentials)
 
 ### Developer Sandbox Mode
