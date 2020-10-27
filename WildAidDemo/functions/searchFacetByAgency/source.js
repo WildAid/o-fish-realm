@@ -2,8 +2,8 @@ exports = function(limit, offset, query, filter){
 var agencyCollection = context.services.get("mongodb-atlas")
   .db("wildaid").collection("Agency");
 
-var boardingsCollection = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("BoardingReports");
+var userCollection = context.services.get("mongodb-atlas")
+    .db("wildaid").collection("User");
 
 if (!query){
   var amount = 0;
@@ -50,11 +50,12 @@ if (!query){
         }
       ]).toArray();
   }
-  var officers = boardingsCollection.aggregate([
+
+  var officers = userCollection.aggregate([
   {
     $project: {
-      'agency': '$agency',
-      'officer': {$concat: ['$reportingOfficer.name.first', ' ', '$reportingOfficer.name.last']}
+      'agency': '$agency.name',
+      'officer': {$concat: ['$name.first', ' ', '$name.last']}
     }
   },
   {
