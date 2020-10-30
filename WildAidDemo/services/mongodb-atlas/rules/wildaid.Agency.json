@@ -89,14 +89,22 @@
                 "items": {
                     "bsonType": "object",
                     "properties": {
-                        "fromDate": {
-                            "bsonType": "date"
-                        },
                         "name": {
                             "bsonType": "string"
                         },
-                        "tDate": {
-                            "bsonType": "date"
+                        "dates": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "properties": {
+                                    "fromDate": {
+                                        "bsonType": "date"
+                                    },
+                                    "toDate": {
+                                        "bsonType": "date"
+                                    }
+                                }
+                            }
                         }
                     },
                     "title": "outboundPartnerAgencies"
