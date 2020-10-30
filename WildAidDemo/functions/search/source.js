@@ -18,6 +18,7 @@ exports = function(query){
   }, {
    '$group' : {
      _id : '$vessel.name',
+     permitNumber: { $first: '$vessel.permitNumber' },
      catches: { $push: "$inspection.actualCatch.fish" }
     }
   },{
@@ -64,7 +65,9 @@ exports = function(query){
   }, {
     '$project': {
       'captain.name': 1, 
+      'captain.license': 1,
       'crew.name': 1, 
+      'crew.license': 1,
       'vessel.name': 1,
       'highlights': {
         '$meta': 'searchHighlights'
