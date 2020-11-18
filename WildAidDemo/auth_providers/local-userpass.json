@@ -1,10 +1,13 @@
 {
+    "id": "5f7371626754268dab657ad5",
     "name": "local-userpass",
     "type": "local-userpass",
     "config": {
         "autoConfirm": true,
+        "confirmEmailSubject": "Reset Password Link",
+        "emailConfirmationUrl": "http://localhost:3000/#/reset_password",
         "resetFunctionName": "resetFunc",
-        "resetPasswordSubject": "Reset Password Link",
+        "resetPasswordSubject": "Reset O-FISH Password Link",
         "resetPasswordUrl": "http://localhost:3000/#/reset_password",
         "runConfirmationFunction": false,
         "runResetFunction": false

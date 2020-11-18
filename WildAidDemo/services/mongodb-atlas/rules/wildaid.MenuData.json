@@ -1,6 +1,6 @@
 {
-    "database": "wildaid",
     "collection": "MenuData",
+    "database": "wildaid",
     "roles": [
         {
             "name": "Global Admin",
@@ -17,6 +17,7 @@
             "write": true,
             "insert": true,
             "delete": true,
+            "search": true,
             "additional_fields": {}
         },
         {
@@ -33,79 +34,80 @@
                 }
             },
             "write": true,
-            "insert": false,
-            "delete": false,
+            "insert": true,
+            "delete": true,
+            "search": true,
             "additional_fields": {}
         }
     ],
     "schema": {
         "bsonType": "object",
         "properties": {
-          "_id": {
-            "bsonType": "objectId"
-          },
-          "activities": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "activities": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "agency": {
+                "bsonType": "string"
+            },
+            "countryPickerPriorityList": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "emsTypes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "fisheries": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "gear": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "ports": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "species": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "violationCodes": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "violationDescriptions": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
             }
-          },
-          "agency": {
-            "bsonType": "string"
-          },
-          "countryPickerPriorityList": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          },
-          "emsTypes": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          },
-          "fisheries": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          },
-          "gear": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          },
-          "ports": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          },
-          "species": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          },
-          "violationCodes": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          },
-          "violationDescriptions": {
-            "bsonType": "array",
-            "items": {
-              "bsonType": "string"
-            }
-          }
         },
         "required": [
-          "_id",
-          "agency"
+            "_id",
+            "agency"
         ],
         "title": "MenuData"
-      }
+    }
 }

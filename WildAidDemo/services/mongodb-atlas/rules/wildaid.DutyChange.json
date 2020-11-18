@@ -1,6 +1,7 @@
 {
-    "database": "wildaid",
     "collection": "DutyChange",
+    "database": "wildaid",
+    "id": "5f7371626754268dab657a7c",
     "roles": [
         {
             "name": "Global Admin",
@@ -17,6 +18,7 @@
             "write": true,
             "insert": true,
             "delete": true,
+            "search": true,
             "additional_fields": {}
         },
         {
@@ -34,6 +36,7 @@
             "write": true,
             "insert": true,
             "delete": true,
+            "search": true,
             "additional_fields": {}
         },
         {
@@ -52,8 +55,60 @@
             "read": true,
             "insert": true,
             "delete": false,
+            "search": true,
             "additional_fields": {}
         }
     ],
-    "schema": {}
+    "schema": {
+        "bsonType": "object",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "agency": {
+                "bsonType": "string"
+            },
+            "date": {
+                "bsonType": "date"
+            },
+            "status": {
+                "bsonType": "string"
+            },
+            "user": {
+                "bsonType": "object",
+                "properties": {
+                    "email": {
+                        "bsonType": "string"
+                    },
+                    "name": {
+                        "bsonType": "object",
+                        "properties": {
+                            "first": {
+                                "bsonType": "string"
+                            },
+                            "last": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "required": [
+                            "first",
+                            "last"
+                        ],
+                        "title": "Name"
+                    }
+                },
+                "required": [
+                    "email"
+                ],
+                "title": "User"
+            }
+        },
+        "required": [
+            "_id",
+            "agency",
+            "date",
+            "status"
+        ],
+        "title": "DutyChange"
+    }
 }
