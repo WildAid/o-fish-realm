@@ -1,15 +1,13 @@
 exports = function(limit, offset, query, filter, agenciesToShareData){
-  var boardingsCollection = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("BoardingReports");
-
-  var agenciesCollection = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("Agency");
+  const boardingsCollection = context.services.get("mongodb-atlas").db("wildaid").collection("BoardingReports");
+  let boardings = [];
+  let amount = 0;
 
   let agencyAggregate = { "$addFields": {
       "numItems": 1
     }
   };
-  
+ 
   if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin && agenciesToShareData){
     agencyAggregate = {
       $match: { agency: { $in: agenciesToShareData } }
@@ -17,9 +15,8 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
   }
   
   if (!query){
-    var amount = 0;
     if (filter){
-      var dateFilter = {};
+      let dateFilter = {};
       if (filter["date-from"]){
         dateFilter.$gte = new Date(filter["date-from"]);
         delete filter["date-from"];
@@ -59,7 +56,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
         }
       ]).toArray();
     }
-    var boardings = [];
+
     if (filter){
       boardings = boardingsCollection
       .aggregate([agencyAggregate,
@@ -86,7 +83,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
     }
     return {boardings, amount}
   } else {
-    var aggregateTerms = {};
+    let aggregateTerms = {};
 
     if (filter){
       aggregateTerms = {
@@ -178,22 +175,25 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
       }
     }
     
-    var amount = boardingsCollection.aggregate([agencyAggregate,
-      aggregateTerms, {
+    amount = boardingsCollection.aggregate([
+      aggregateTerms,
+      agencyAggregate, {
         '$count': "total"
       }
     ]).toArray();
 
-    var boardings = boardingsCollection.aggregate([agencyAggregate,
-      aggregateTerms, {
+    boardings = boardingsCollection.aggregate([
+      aggregateTerms,
+      agencyAggregate, {
         '$skip': offset
       }, {
         '$limit': limit
       }
     ]).toArray();
 
-    var highlighted = boardingsCollection.aggregate([agencyAggregate,
-      aggregateTerms, {
+    const highlighted = boardingsCollection.aggregate([
+      aggregateTerms,
+      agencyAggregate, {
         '$project': {
           'highlights': {
             '$meta': 'searchHighlights'
