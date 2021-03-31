@@ -13,6 +13,8 @@ The [WildAid Marine Program](https://marine.wildaid.org/) works to protect vulne
 
 O-FISH (Officer Fishery Information Sharing Hub) is a multi-platform application that enables officers to browse and record boarding report data from their mobile devices.
 
+The details behind the data architecture, schema, and partitioning strategy are described in [Realm Data and Partitioning Strategy Behind the WildAid O-FISH Mobile Apps](https://developer.mongodb.com/how-to/realm-data-architecture-ofish-app).
+
 <BR><BR>Developers are expected to follow the <A HREF="https://www.mongodb.com/community-code-of-conduct">MongoDB Community Code of Conduct</A> guidelines.
 
 This repo implements the O-FISH Realm serverless backend application and contains sample data. The `WildAidSampleBackup` directory contains a `mongodump` of the database, suitable for building and testing. The `WildAidDemo` directory contains the serverless functions, triggers, values, Realm Sync rules and other code that makes up the backend for the [web](https://github.com/WildAid/o-fish-web), [iOS](https://github.com/WildAid/o-fish-ios) and [Android](https://github.com/WildAid/o-fish-android) applications - together with the connection to the associated MongoDB Atlas database.
