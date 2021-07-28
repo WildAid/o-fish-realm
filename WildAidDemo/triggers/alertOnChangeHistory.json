@@ -11,7 +11,9 @@
         "collection": "ChangeHistory",
         "service_name": "mongodb-atlas",
         "match": {},
+        "project": {},
         "full_document": true,
+        "full_document_before_change": false,
         "unordered": false
     },
     "function_name": "changeHistoryAlert",

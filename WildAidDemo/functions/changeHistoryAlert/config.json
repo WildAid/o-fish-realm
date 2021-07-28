@@ -1,5 +1,5 @@
 {
+    "can_evaluate": {},
     "name": "changeHistoryAlert",
-    "private": true,
-    "can_evaluate": {}
+    "private": true
 }

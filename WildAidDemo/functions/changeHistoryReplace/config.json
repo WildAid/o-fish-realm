@@ -1,5 +1,5 @@
 {
+    "can_evaluate": {},
     "name": "changeHistoryReplace",
-    "private": true,
-    "can_evaluate": {}
+    "private": true
 }

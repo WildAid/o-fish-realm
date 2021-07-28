@@ -11,6 +11,7 @@
         "match": {},
         "project": {},
         "full_document": true,
+        "full_document_before_change": false,
         "unordered": true
     },
     "function_name": "bootStrapDevelopmentAgency",

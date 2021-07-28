@@ -38,61 +38,61 @@
             "additional_fields": {}
         },
         {
-      "name": "Agency Member",
-      "apply_when": {
-        "%%true": {
-          "%function": {
-            "arguments": [
-              "%%root.agency",
-              "%%user.data.email"
-            ],
-            "name": "isAgencyMember"
-          }
+            "name": "Agency Member",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyMember"
+                    }
+                }
+            },
+            "fields": {
+                "picture": {
+                    "write": true
+                }
+            },
+            "read": true,
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
         }
-      },
-      "insert": true,
-      "delete": true,
-      "read": true,
-      "fields": {
-        "picture": {
-          "write": true
-        }
-      },
-      "additional_fields": {}
-    }
     ],
     "schema": {
-      "title": "Photo",
-  "bsonType": "object",
-  "required": [
-    "_id",
-    "agency",
-    "pictureURL",
-    "referencingReportID",
-    "date"
-  ],
-  "properties": {
-    "_id": {
-      "bsonType": "objectId"
-    },
-    "agency": {
-      "bsonType": "string"
-    },
-    "thumbNail": {
-      "bsonType": "binData"
-    },
-    "picture": {
-      "bsonType": "binData"
-    },
-    "pictureURL": {
-      "bsonType": "string"
-    },
-    "referencingReportID": {
-      "bsonType": "string"
-    },
-    "date": {
-      "bsonType": "date"
-    }
-  }
+        "bsonType": "object",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "agency": {
+                "bsonType": "string"
+            },
+            "date": {
+                "bsonType": "date"
+            },
+            "picture": {
+                "bsonType": "binData"
+            },
+            "pictureURL": {
+                "bsonType": "string"
+            },
+            "referencingReportID": {
+                "bsonType": "string"
+            },
+            "thumbNail": {
+                "bsonType": "binData"
+            }
+        },
+        "required": [
+            "_id",
+            "agency",
+            "pictureURL",
+            "referencingReportID",
+            "date"
+        ],
+        "title": "Photo"
     }
 }

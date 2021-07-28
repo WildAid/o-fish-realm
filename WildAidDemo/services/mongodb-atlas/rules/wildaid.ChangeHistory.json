@@ -1,6 +1,6 @@
 {
-    "database": "wildaid",
     "collection": "ChangeHistory",
+    "database": "wildaid",
     "roles": [
         {
             "name": "default",
