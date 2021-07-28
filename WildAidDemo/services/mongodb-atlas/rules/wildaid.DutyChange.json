@@ -1,7 +1,6 @@
 {
     "collection": "DutyChange",
     "database": "wildaid",
-    "id": "5f7371626754268dab657a7c",
     "roles": [
         {
             "name": "Global Admin",

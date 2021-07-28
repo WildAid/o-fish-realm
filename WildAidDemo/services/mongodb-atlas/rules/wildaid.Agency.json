@@ -89,9 +89,6 @@
                 "items": {
                     "bsonType": "object",
                     "properties": {
-                        "name": {
-                            "bsonType": "string"
-                        },
                         "dates": {
                             "bsonType": "array",
                             "items": {
@@ -105,6 +102,9 @@
                                     }
                                 }
                             }
+                        },
+                        "name": {
+                            "bsonType": "string"
                         }
                     },
                     "title": "outboundPartnerAgencies"
