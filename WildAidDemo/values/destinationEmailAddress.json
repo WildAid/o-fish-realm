@@ -1,4 +1,5 @@
 {
+    "id": "60a40bdb90394cecd1825cbf",
     "name": "destinationEmailAddress",
     "value": "TODO: Set if you want to send emails",
     "from_secret": false

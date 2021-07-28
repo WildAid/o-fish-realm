@@ -1,12 +1,12 @@
 exports = function (limit, offset, query, filter) {
   var agencyCollection = context.services
     .get("mongodb-atlas")
-    .db("wildaid")
+    .db("ofish")
     .collection("Agency");
 
   var boardingsCollection = context.services
     .get("mongodb-atlas")
-    .db("wildaid")
+    .db("ofish")
     .collection("BoardingReports");
 
   var boardings = boardingsCollection

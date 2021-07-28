@@ -1,4 +1,5 @@
 {
+    "id": "60a40bdb90394cecd1825cb0",
     "name": "AgencyPartnershipChange",
     "type": "DATABASE",
     "config": {
@@ -7,12 +8,13 @@
             "INSERT",
             "REPLACE"
         ],
-        "database": "wildaid",
+        "database": "ofish",
         "collection": "Agency",
         "service_name": "mongodb-atlas",
         "match": {},
         "project": {},
         "full_document": true,
+        "full_document_before_change": false,
         "unordered": false
     },
     "function_name": "updateInboundPartners",

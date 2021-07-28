@@ -1,6 +1,6 @@
 exports = function(emailAddress){
  var userCollection = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("User");
+    .db("ofish").collection("User");
   
   return userCollection.aggregate([
         {

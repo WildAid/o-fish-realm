@@ -1,6 +1,6 @@
 exports = function(query, filter){
   var dutyChange = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("DutyChange");
+  .db("ofish").collection("DutyChange");
 
   let aggregates = [];
   if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin){

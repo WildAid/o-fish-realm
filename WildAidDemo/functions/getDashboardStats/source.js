@@ -1,6 +1,6 @@
 exports = function(query, filter){
   var boardingsCollection = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("BoardingReports");
+  .db("ofish").collection("BoardingReports");
 
   let aggregates = [];
   if (context.user && context.user.custom_data && context.user.custom_data.global && !context.user.custom_data.global.admin){

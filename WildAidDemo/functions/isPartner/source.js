@@ -1,6 +1,6 @@
 exports = function(agency, documentDate, emailAddress){
   console.log(`Partner check - Checking email address: ${emailAddress} for documentAgency: ${agency}`);
-  var database = context.services.get("mongodb-atlas").db("wildaid");
+  var database = context.services.get("mongodb-atlas").db("ofish");
   var userCollection = database.collection("User");
   var agencyCollection = database.collection("Agency");
   

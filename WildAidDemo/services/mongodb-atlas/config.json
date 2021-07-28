@@ -1,8 +1,9 @@
 {
+    "id": "60a40bdb90394cecd1825c06",
     "name": "mongodb-atlas",
     "type": "mongodb-atlas",
     "config": {
-        "clusterName": "WildAidDemo",
+        "clusterName": "O-FISH",
         "readPreference": "primary",
         "wireProtocolEnabled": true
     },

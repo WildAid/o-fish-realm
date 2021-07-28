@@ -1,6 +1,6 @@
 exports = function(limit, offset, query, filter, agenciesToShareData){
   var boardingsCollection = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("BoardingReports");
+  .db("ofish").collection("BoardingReports");
   
   const aggregationTerm = [
     {
@@ -80,7 +80,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
   
   if (!query){
     var boardingReports = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("BoardingReports");
+    .db("ofish").collection("BoardingReports");
     if (filter) {
       var dateFilter = {};
       if (filter["date-from"]){

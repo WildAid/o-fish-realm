@@ -1,0 +1,163 @@
+{
+    "collection": "User",
+    "database": "ofish",
+    "id": "60a40bdb90394cecd1825c64",
+    "roles": [
+        {
+            "name": "Global Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%user.data.email"
+                        ],
+                        "name": "isGlobalAdmin"
+                    }
+                }
+            },
+            "fields": {
+                "global": {},
+                "inboundPartnerAgencies": {}
+            },
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Agency Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency.name",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyAdmin"
+                    }
+                }
+            },
+            "fields": {
+                "global": {},
+                "inboundPartnerAgencies": {
+                    "write": true
+                }
+            },
+            "read": true,
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {
+                "write": true
+            }
+        },
+        {
+            "name": "User",
+            "apply_when": {
+                "email": "%%user.data.email"
+            },
+            "fields": {
+                "global": {},
+                "inboundPartnerAgencies": {}
+            },
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {
+                "write": true
+            }
+        },
+        {
+            "name": "AgencyMember",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency.name",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyMember"
+                    }
+                }
+            },
+            "fields": {
+                "global": {},
+                "inboundPartnerAgencies": {}
+            },
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "agency": {
+                "bsonType": "object",
+                "properties": {
+                    "admin": {
+                        "bsonType": "bool"
+                    },
+                    "name": {
+                        "bsonType": "string"
+                    }
+                }
+            },
+            "createdOn": {
+                "bsonType": "date"
+            },
+            "email": {
+                "bsonType": "string"
+            },
+            "global": {
+                "bsonType": "object",
+                "properties": {
+                    "admin": {
+                        "bsonType": "bool"
+                    }
+                }
+            },
+            "group": {
+                "bsonType": "object",
+                "properties": {
+                    "admin": {
+                        "bsonType": "bool"
+                    },
+                    "name": {
+                        "bsonType": "string"
+                    }
+                }
+            },
+            "inboundPartnerAgencies": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "string"
+                }
+            },
+            "name": {
+                "bsonType": "object",
+                "properties": {
+                    "first": {
+                        "bsonType": "string"
+                    },
+                    "last": {
+                        "bsonType": "string"
+                    }
+                }
+            },
+            "profilePic": {
+                "bsonType": "string"
+            },
+            "realmUserID": {
+                "bsonType": "string"
+            }
+        },
+        "title": "User"
+    }
+}

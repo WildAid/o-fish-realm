@@ -1,6 +1,6 @@
 exports = function(limit, offset){
  var boardingReports = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("BoardingReports");
+    .db("ofish").collection("BoardingReports");
     
   var amount = boardingReports
      .aggregate([

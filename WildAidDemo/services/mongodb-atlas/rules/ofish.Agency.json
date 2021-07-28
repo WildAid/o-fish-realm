@@ -1,0 +1,125 @@
+{
+    "collection": "Agency",
+    "database": "ofish",
+    "id": "60a40bdb90394cecd1825c5e",
+    "roles": [
+        {
+            "name": "Global Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%user.data.email"
+                        ],
+                        "name": "isGlobalAdmin"
+                    }
+                }
+            },
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Agency Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.name",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyAdmin"
+                    }
+                }
+            },
+            "write": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Anyone",
+            "apply_when": {},
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "active": {
+                "bsonType": "bool"
+            },
+            "description": {
+                "bsonType": "string"
+            },
+            "email": {
+                "bsonType": "string"
+            },
+            "inboundPartnerAgencies": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "agencyWideAccess": {
+                            "bsonType": "boolean"
+                        },
+                        "name": {
+                            "bsonType": "string"
+                        },
+                        "triaged": {
+                            "bsonType": "boolean"
+                        }
+                    },
+                    "title": "inboundPartnerAgencies"
+                }
+            },
+            "name": {
+                "bsonType": "string"
+            },
+            "outboundPartnerAgencies": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "object",
+                    "properties": {
+                        "dates": {
+                            "bsonType": "array",
+                            "items": {
+                                "bsonType": "object",
+                                "properties": {
+                                    "fromDate": {
+                                        "bsonType": "date"
+                                    },
+                                    "toDate": {
+                                        "bsonType": "date"
+                                    }
+                                }
+                            }
+                        },
+                        "name": {
+                            "bsonType": "string"
+                        }
+                    },
+                    "title": "outboundPartnerAgencies"
+                }
+            },
+            "site": {
+                "bsonType": "string"
+            }
+        },
+        "required": [
+            "_id",
+            "active",
+            "name"
+        ],
+        "title": "Agency"
+    }
+}

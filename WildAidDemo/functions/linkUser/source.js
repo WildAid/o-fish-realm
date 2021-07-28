@@ -1,5 +1,5 @@
 exports = function(authEvent) {
-  const userCollection = context.services.get("mongodb-atlas").db("wildaid").collection("User");
+  const userCollection = context.services.get("mongodb-atlas").db("ofish").collection("User");
   const email = authEvent.user.data.email
   userCollection.updateOne({email: email}, {$set: {realmUserID: authEvent.user.id}})
     .then (() => {
@@ -10,7 +10,7 @@ exports = function(authEvent) {
           if (!userDoc.profilePic || userDoc.profilePic === "") {
             const photoURL = context.values.get("defaultHeadshotImageURL")
             console.log(`Setting profilePic for ${email} to ${photoURL}`)
-            const photoCollection = context.services.get("mongodb-atlas").db("wildaid").collection("Photo");
+            const photoCollection = context.services.get("mongodb-atlas").db("ofish").collection("Photo");
             const photoDoc = {
               date: new Date(),
               agency: userDoc.agency? userDoc.agency.name : "",

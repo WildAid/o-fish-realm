@@ -1,6 +1,6 @@
 exports = function(limit, offset, query, filter){
 var usersCollection = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("User");
+  .db("ofish").collection("User");
   
 if (!query){
   var amount = 0;

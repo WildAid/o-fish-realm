@@ -1,7 +1,7 @@
 exports = function(agency, emailAddress){
   console.log(`Checking email address: ${emailAddress} for agency: ${agency}`);
   var userCollection = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("User");
+    .db("ofish").collection("User");
   
   return userCollection.findOne({email: emailAddress, "agency.name": agency})
   .then ( userDoc => { 

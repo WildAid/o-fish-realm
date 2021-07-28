@@ -1,4 +1,5 @@
 {
+    "id": "60a40bdb90394cecd1825cb5",
     "name": "recordChangeHistory",
     "type": "DATABASE",
     "config": {
@@ -8,11 +9,13 @@
             "INSERT",
             "DELETE"
         ],
-        "database": "wildaid",
+        "database": "ofish",
         "collection": "BoardingReports",
         "service_name": "mongodb-atlas",
         "match": {},
+        "project": {},
         "full_document": true,
+        "full_document_before_change": false,
         "unordered": false
     },
     "function_name": "recordChangeHistory",

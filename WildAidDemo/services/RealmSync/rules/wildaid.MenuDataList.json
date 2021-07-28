@@ -1,5 +1,5 @@
 {
-    "database": "wildaid",
+    "database": "ofish",
     "collection": "MenuData",
     "schema": {
         "title": "MenuData",

@@ -1,6 +1,6 @@
 {
     "collection": "Agency",
-    "database": "wildaid",
+    "database": "ofish",
     "roles": [
         {
             "name": "Global Admin",

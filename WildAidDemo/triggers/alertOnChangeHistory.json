@@ -1,4 +1,5 @@
 {
+    "id": "60a40bdb90394cecd1825cb1",
     "name": "alertOnChangeHistory",
     "type": "DATABASE",
     "config": {
@@ -7,11 +8,13 @@
             "UPDATE",
             "REPLACE"
         ],
-        "database": "wildaid",
+        "database": "ofish",
         "collection": "ChangeHistory",
         "service_name": "mongodb-atlas",
         "match": {},
+        "project": {},
         "full_document": true,
+        "full_document_before_change": false,
         "unordered": false
     },
     "function_name": "changeHistoryAlert",

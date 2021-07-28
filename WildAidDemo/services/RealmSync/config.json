@@ -1,8 +1,9 @@
 {
+    "id": "60a40bda90394cecd1825bc0",
     "name": "RealmSync",
     "type": "mongodb-atlas",
     "config": {
-        "clusterName": "WildAidDemo",
+        "clusterName": "O-FISH",
         "readPreference": "primary",
         "wireProtocolEnabled": false
     },

@@ -1,6 +1,6 @@
 exports = function(changeEvent) {
   if (!changeEvent.fullDocument.outBoundPartnerAgencies) { return }
-  const agencyCollection = context.services.get("mongodb-atlas").db("wildaid").collection("Agency");
+  const agencyCollection = context.services.get("mongodb-atlas").db("ofish").collection("Agency");
   const agency = changeEvent.fullDocument.name
 
   agencyCollection.find({'inBoundPartnerAgencies.name': agency}).toArray()

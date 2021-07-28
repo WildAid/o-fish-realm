@@ -1,6 +1,6 @@
 exports = function(limit, offset, filter){
  var boardingReports = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("BoardingReports");
+    .db("ofish").collection("BoardingReports");
   var amount = 0;
   if (filter){
     amount = boardingReports

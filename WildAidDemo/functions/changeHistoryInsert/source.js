@@ -1,7 +1,7 @@
 exports = function(change) {
 
   const mongodb = context.services.get("mongodb-atlas");
-  const history = mongodb.db('wildaid').collection('ChangeHistory');
+  const history = mongodb.db('ofish').collection('ChangeHistory');
   
   const ObjID = change.fullDocument._id;
  

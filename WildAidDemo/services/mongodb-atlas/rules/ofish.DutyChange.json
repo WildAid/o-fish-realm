@@ -1,0 +1,114 @@
+{
+    "collection": "DutyChange",
+    "database": "ofish",
+    "id": "60a40bdb90394cecd1825c61",
+    "roles": [
+        {
+            "name": "Global Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%user.data.email"
+                        ],
+                        "name": "isGlobalAdmin"
+                    }
+                }
+            },
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Agency Admin",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyAdmin"
+                    }
+                }
+            },
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "search": true,
+            "additional_fields": {}
+        },
+        {
+            "name": "Agency Member",
+            "apply_when": {
+                "%%true": {
+                    "%function": {
+                        "arguments": [
+                            "%%root.agency",
+                            "%%user.data.email"
+                        ],
+                        "name": "isAgencyMember"
+                    }
+                }
+            },
+            "read": true,
+            "insert": true,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "bsonType": "object",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "agency": {
+                "bsonType": "string"
+            },
+            "date": {
+                "bsonType": "date"
+            },
+            "status": {
+                "bsonType": "string"
+            },
+            "user": {
+                "bsonType": "object",
+                "properties": {
+                    "email": {
+                        "bsonType": "string"
+                    },
+                    "name": {
+                        "bsonType": "object",
+                        "properties": {
+                            "first": {
+                                "bsonType": "string"
+                            },
+                            "last": {
+                                "bsonType": "string"
+                            }
+                        },
+                        "required": [
+                            "first",
+                            "last"
+                        ],
+                        "title": "Name"
+                    }
+                },
+                "required": [
+                    "email"
+                ],
+                "title": "User"
+            }
+        },
+        "required": [
+            "_id",
+            "agency",
+            "date",
+            "status"
+        ],
+        "title": "DutyChange"
+    }
+}

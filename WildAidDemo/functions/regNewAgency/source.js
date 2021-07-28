@@ -20,7 +20,7 @@ exports = function(firstName, lastName, email, agencyName, agencyURL) {
       return {result: "error", reason: errorText};
   }
   
-  var database = context.services.get("mongodb-atlas").db("wildaid");
+  var database = context.services.get("mongodb-atlas").db("ofish");
   var userCollection = database.collection("User");
   var agencyCollection = database.collection("Agency");
  

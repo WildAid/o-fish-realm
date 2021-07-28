@@ -1,6 +1,6 @@
 exports = function(limit, offset, query, filter){
   var boardingsCollection = context.services.get("mongodb-atlas")
-  .db("wildaid").collection("BoardingReports");
+  .db("ofish").collection("BoardingReports");
   const aggregationTerm = [
     {
       $project: {
@@ -66,7 +66,7 @@ exports = function(limit, offset, query, filter){
   ];
   if (!query){
     var boardingReports = context.services.get("mongodb-atlas")
-    .db("wildaid").collection("BoardingReports");
+    .db("ofish").collection("BoardingReports");
     if (filter) {
       var dateFilter = {};
       if (filter["date-from"]){

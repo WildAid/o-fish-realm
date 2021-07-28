@@ -1,0 +1,17 @@
+{
+    "collection": "ChangeHistory",
+    "database": "ofish",
+    "id": "60a40bdb90394cecd1825c60",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "read": true,
+            "write": false,
+            "insert": false,
+            "delete": false,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {}
+}
