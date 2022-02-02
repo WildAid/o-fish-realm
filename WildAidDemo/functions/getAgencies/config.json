@@ -1,5 +1,4 @@
 {
     "name": "getAgencies",
     "private": false,
-    "run_as_system": true
 }
