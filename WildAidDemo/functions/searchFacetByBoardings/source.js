@@ -2,6 +2,11 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
   const boardingsCollection = context.services.get("mongodb-atlas").db("wildaid").collection("BoardingReports");
   let boardings = [];
   let amount = 0;
+  let sortingTerms = {
+    "$sort": {
+      date: -1
+    }
+  }
 
   let agencyAggregate = { "$addFields": {
       "numItems": 1
@@ -59,7 +64,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
 
     if (filter){
       boardings = boardingsCollection
-      .aggregate([agencyAggregate,
+      .aggregate([agencyAggregate,sortingTerms
         {
           $match: filter
         },
@@ -72,7 +77,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
       ]).toArray();
     } else {
       boardings = boardingsCollection
-      .aggregate([agencyAggregate,
+      .aggregate([agencyAggregate,sortingTerms
         {
           $skip: offset
         },
@@ -184,6 +189,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
 
     boardings = boardingsCollection.aggregate([
       aggregateTerms,
+      sortingTerms,
       agencyAggregate, {
         '$skip': offset
       }, {
