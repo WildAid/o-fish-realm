@@ -41,7 +41,9 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
         }
       }
       if (filter["inspection.summary.safetyLevel"]){
-        filter["inspection.summary.safetyLevel.level"] = filter["inspection.summary.safetyLevel"];
+          filter["inspection.summary.safetyLevel.level"] = {
+            $in: Array.from(filter["inspection.summary.safetyLevel.level"]),
+          };
         delete(filter["inspection.summary.safetyLevel"]);
       }
 
@@ -127,8 +129,17 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
           case "inspection.summary.safetyLevel":
           aggregateTerms.$search.compound.must.push({
             "search": {
-              "query": filter["inspection.summary.safetyLevel"],
-              "path":"inspection.summary.safetyLevel.level"
+             "compound": {
+                  "filter": [
+                    
+                    {
+                       "text": {
+                          "query": Array.from(filter["inspection.summary.safetyLevel.level"]),
+                          "path":"inspection.summary.safetyLevel.level"
+                       },
+                    }
+                  ]
+              }
             }
           });
           break;
