@@ -44,6 +44,14 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
         filter["inspection.summary.safetyLevel.level"] = filter["inspection.summary.safetyLevel"];
         delete(filter["inspection.summary.safetyLevel"]);
       }
+
+      if (filter["captain.lastName"]) {
+        filter["captain.name"] ={
+          $regex:  Array.from(filter["captain.lastName"]).join("|"),
+        };
+        delete(filter["captain.lastName"]);
+      }
+
       amount = boardingsCollection
       .aggregate([agencyAggregate,
         {
@@ -64,7 +72,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
 
     if (filter){
       boardings = boardingsCollection
-      .aggregate([agencyAggregate,sortingTerms
+      .aggregate([agencyAggregate,sortingTerms,
         {
           $match: filter
         },
@@ -77,7 +85,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
       ]).toArray();
     } else {
       boardings = boardingsCollection
-      .aggregate([agencyAggregate,sortingTerms
+      .aggregate([agencyAggregate,sortingTerms,
         {
           $skip: offset
         },
@@ -124,6 +132,23 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
             }
           });
           break;
+          case "captain.lastName":
+          aggregateTerms.$search.compound.must.push({
+           "search": {
+               "compound": {
+                 "filter": [
+                   
+                   {
+                      "text": {
+                         "query": Array.from(filter["captain.lastName"]).join("|"),
+                         "path":"captain.name"
+                      },
+                   }
+                 ]
+             }
+           }
+         });
+         break;
           case "date":
           aggregateTerms.$search.compound.must.push({
             "range": {
@@ -165,7 +190,7 @@ exports = function(limit, offset, query, filter, agenciesToShareData){
           'term': {
             'query': query,
             'path': [
-              'vessel.name', 'captain.name', 'inspection.summary.violations.offence.explanation', 'inspection.summary.violations.offence.code', 'vessel.permitNumber', 'crew.license'
+              'vessel.name', 'inspection.summary.violations.offence.explanation', 'inspection.summary.violations.offence.code', 'vessel.permitNumber', 'crew.license'
             ],
             'fuzzy': {
               'maxEdits': 1.0
